@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSAI — Your Personal AI Operating System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-card: #111113;
+  --bg-card-hover: #18181b;
+  --border: #27272a;
+  --text: #fafafa;
+  --text-dim: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #f97316;
+  --accent-glow: rgba(249,115,22,0.15);
+  --accent2: #3b82f6;
+  --accent3: #10b981;
+  --gradient: linear-gradient(135deg, #f97316, #fb923c, #f59e0b);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Noise overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ─── Nav ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 16px 24px;
+  background: rgba(10,10,11,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.nav-inner { max-width: 1140px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
+.logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--gradient);
+  color: #000; font-weight: 600; font-size: 0.875rem;
+  padding: 8px 20px; border-radius: 8px; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+
+/* ─── Hero ─── */
+.hero {
+  padding: 160px 0 100px;
+  text-align: center;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 80px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.8rem; color: var(--text-dim);
+  margin-bottom: 24px;
+}
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+h1 .gradient { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.hero-sub {
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  max-width: 580px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--gradient);
+  color: #000; font-weight: 700; font-size: 1rem;
+  padding: 14px 32px; border-radius: 12px; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+.btn-secondary {
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text); font-weight: 600; font-size: 1rem;
+  padding: 14px 32px; border-radius: 12px; text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card-hover); }
+
+/* ─── Terminal Demo ─── */
+.terminal-wrap {
+  max-width: 720px;
+  margin: 60px auto 0;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.terminal-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  background: #18181b;
+  border-bottom: 1px solid var(--border);
+}
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-dot.r { background: #ef4444; }
+.terminal-dot.y { background: #eab308; }
+.terminal-dot.g { background: #22c55e; }
+.terminal-title { flex:1; text-align:center; font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
+.terminal-body {
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  min-height: 220px;
+}
+.terminal-body .prompt { color: var(--accent); }
+.terminal-body .cmd { color: var(--text); }
+.terminal-body .output { color: var(--text-dim); }
+.terminal-body .success { color: var(--accent3); }
+.terminal-body .info { color: var(--accent2); }
+
+.line { opacity: 0; animation: fadeIn 0.3s forwards; }
+.line:nth-child(1) { animation-delay: 0.3s; }
+.line:nth-child(2) { animation-delay: 0.9s; }
+.line:nth-child(3) { animation-delay: 1.4s; }
+.line:nth-child(4) { animation-delay: 2.0s; }
+.line:nth-child(5) { animation-delay: 2.5s; }
+.line:nth-child(6) { animation-delay: 3.0s; }
+.line:nth-child(7) { animation-delay: 3.5s; }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ─── Section ─── */
+section { padding: 100px 0; }
+.section-label {
+  font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.section-desc {
+  color: var(--text-dim); font-size: 1.05rem;
+  max-width: 560px; margin-bottom: 48px;
+}
+
+/* ─── Capabilities Grid ─── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+.cap-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+}
+.cap-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+.cap-icon {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+.cap-card h3 {
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 8px;
+}
+.cap-card p {
+  color: var(--text-dim); font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ─── How It Works ─── */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  counter-increment: step;
+}
+.step::before {
+  content: counter(step);
+  position: absolute; top: -14px; left: 28px;
+  background: var(--gradient);
+  color: #000; font-weight: 800; font-size: 0.85rem;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; margin-top: 4px; }
+.step p { color: var(--text-dim); font-size: 0.9rem; }
+
+/* ─── Use Cases ─── */
+.use-cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.use-case {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.3s;
+}
+.use-case:hover { border-color: var(--accent); }
+.use-case .icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+.use-case h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.use-case p { color: var(--text-dim); font-size: 0.85rem; }
+
+/* ─── Pricing ─── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.price-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  transition: all 0.3s;
+}
+.price-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+.price-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--gradient);
+  color: #000; font-weight: 700; font-size: 0.7rem;
+  padding: 4px 14px; border-radius: 100px;
+  letter-spacing: 0.05em;
+}
+.price-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.price-card .price-desc { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
+.price-amount {
+  font-size: 2.5rem; font-weight: 900; letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+.price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-dim); }
+.price-card ul {
+  list-style: none; margin: 20px 0 28px;
+}
+.price-card li {
+  padding: 6px 0;
+  color: var(--text-dim); font-size: 0.9rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.price-card li::before {
+  content: '✓';
+  color: var(--accent3); font-weight: 700; font-size: 0.85rem;
+}
+.price-btn {
+  display: block; text-align: center;
+  padding: 12px; border-radius: 10px;
+  font-weight: 600; font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.price-btn.primary { background: var(--gradient); color: #000; }
+.price-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+.price-btn.secondary { background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text); }
+.price-btn.secondary:hover { border-color: var(--text-muted); }
+
+/* ─── FAQ ─── */
+.faq-list { max-width: 700px; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+.faq-q {
+  font-weight: 600; font-size: 1rem;
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.faq-q::after { content: '+'; font-size: 1.3rem; color: var(--text-muted); transition: transform 0.3s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s, padding 0.3s;
+  color: var(--text-dim); font-size: 0.9rem;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+
+/* ─── CTA ─── */
+.final-cta {
+  text-align: center;
+  padding: 100px 0;
+  position: relative;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.final-cta p {
+  color: var(--text-dim); font-size: 1.1rem;
+  max-width: 480px; margin: 0 auto 32px;
+}
+
+/* ─── Footer ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .cap-grid, .steps, .pricing-grid, .use-cases { grid-template-columns: 1fr; }
+  .hero { padding: 130px 0 60px; }
+  section { padding: 60px 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">⚡ <span>NSAI</span></div>
+    <div class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#how">How It Works</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="badge"><span class="dot"></span> Always on. Always working.</div>
+    <h1>Your Own <span class="gradient">AI Operating System</span></h1>
+    <p class="hero-sub">
+      NSAI runs on your device, connected to your life. It researches, automates, monitors, and executes — so you can focus on what actually matters.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Start Free Consultation</a>
+      <a href="#capabilities" class="btn-secondary">See What It Does →</a>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <div class="terminal-title">nsai — live session</div>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">you › </span><span class="cmd">What happened in my inbox overnight?</span></div>
+        <div class="line"><span class="output">Scanning 14 new emails...</span></div>
+        <div class="line"><span class="success">✓ 2 require action, 4 FYI, 8 filtered to archive</span></div>
+        <div class="line"><span class="info">→ Invoice from Stripe ($2,400) — due Friday</span></div>
+        <div class="line"><span class="info">→ Partnership reply from Acme Corp — they're in</span></div>
+        <div class="line"><span class="output">I've drafted a reply to Acme and flagged the invoice for payment Thursday.</span></div>
+        <div class="line"><span class="prompt">you › </span><span class="cmd">Perfect. Handle it.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAPABILITIES ═══ -->
+<section id="capabilities">
+  <div class="container">
+    <div class="section-label">Capabilities</div>
+    <h2 class="section-title">Not a chatbot. An operator.</h2>
+    <p class="section-desc">
+      NSAI doesn't wait for instructions. It monitors, decides, and acts — with your permission, on your behalf.
+    </p>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-icon">🔍</div>
+        <h3>Deep Research</h3>
+        <p>Web search, content extraction, and synthesis. Get market intelligence, competitive analysis, or answers to complex questions — delivered, not linked.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">⚙️</div>
+        <h3>Workflow Automation</h3>
+        <p>Connects to n8n, APIs, and custom scripts. Automate repetitive work: data entry, report generation, notifications, scheduling — anything with a trigger.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">📊</div>
+        <h3>Proactive Monitoring</h3>
+        <p>Watches your inbox, calendar, markets, news — whatever matters. Alerts you when something needs attention. Handles the rest silently.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🌐</div>
+        <h3>Browser Automation</h3>
+        <p>Full Chromium browser control. Fill forms, scrape data, navigate complex sites, take screenshots. If a human can do it in a browser, NSAI can too.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">💬</div>
+        <h3>Multi-Channel Comms</h3>
+        <p>Talk to NSAI on Telegram, WhatsApp, Discord, Signal, or Slack. It meets you wherever you already are.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🧠</div>
+        <h3>Persistent Memory</h3>
+        <p>Remembers your preferences, past decisions, ongoing projects. Builds context over time. Gets better the longer you use it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="how" style="background: #0d0d0f;">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Up and running in 48 hours</h2>
+    <p class="section-desc">
+      We handle the entire setup. You just tell us what you need.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <h3>Consultation</h3>
+        <p>30-minute call. We learn your workflow, pain points, and what you want automated. No jargon, no upsells.</p>
+      </div>
+      <div class="step">
+        <h3>Custom Build</h3>
+        <p>We configure your NSAI instance — personality, integrations, workflows, and channel connections — tailored to your business.</p>
+      </div>
+      <div class="step">
+        <h3>Deploy & Train</h3>
+        <p>Installed on your device or our hosted infrastructure. We walk you through everything and stick around for the first week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ USE CASES ═══ -->
+<section id="usecases">
+  <div class="container">
+    <div class="section-label">Use Cases</div>
+    <h2 class="section-title">Built for people who build things</h2>
+    <p class="section-desc">
+      Founders, operators, creators, investors — anyone drowning in busy work who'd rather focus on the real work.
+    </p>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="icon">🏗️</div>
+        <div>
+          <h3>Startup Founders</h3>
+          <p>Market research, competitor monitoring, investor outreach automation, daily briefings, inbox triage.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="icon">📈</div>
+        <div>
+          <h3>Traders & Investors</h3>
+          <p>Pre-market reports, earnings monitoring, news sentiment analysis, portfolio alerts, SEC filing digests.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="icon">🏢</div>
+        <div>
+          <h3>Small Business Owners</h3>
+          <p>Customer follow-ups, invoice tracking, appointment scheduling, social media monitoring, vendor management.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="icon">🎨</div>
+        <div>
+          <h3>Creators & Freelancers</h3>
+          <p>Client communication, project tracking, content research, scheduling, contract management.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="icon">⚖️</div>
+        <div>
+          <h3>Consultants & Agencies</h3>
+          <p>Client reporting, data gathering, proposal drafting, meeting prep, competitive intelligence.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="icon">🏠</div>
+        <div>
+          <h3>Real Estate Professionals</h3>
+          <p>Market analysis, lead follow-up, listing monitoring, CMA research, showing coordination.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing" style="background: #0d0d0f;">
+  <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Invest in leverage</h2>
+    <p class="section-desc">
+      Less than the cost of a part-time assistant. More capable than a full-time one.
+    </p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <p class="price-desc">For individuals getting started</p>
+        <div class="price-amount">$297<span>/mo</span></div>
+        <ul>
+          <li>1 messaging channel</li>
+          <li>Core research & monitoring</li>
+          <li>5 custom workflows</li>
+          <li>Persistent memory</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#contact" class="price-btn secondary">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <h3>Operator</h3>
+        <p class="price-desc">For founders and professionals</p>
+        <div class="price-amount">$597<span>/mo</span></div>
+        <ul>
+          <li>All messaging channels</li>
+          <li>Full browser automation</li>
+          <li>Unlimited workflows</li>
+          <li>Proactive monitoring & alerts</li>
+          <li>Weekly optimization calls</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="price-btn primary">Get Started</a>
+      </div>
+      <div class="price-card">
+        <h3>Enterprise</h3>
+        <p class="price-desc">For teams and organizations</p>
+        <div class="price-amount">Custom</div>
+        <ul>
+          <li>Multiple NSAI instances</li>
+          <li>Custom integrations & APIs</li>
+          <li>Dedicated infrastructure</li>
+          <li>White-label available</li>
+          <li>SLA & dedicated support</li>
+        </ul>
+        <a href="#contact" class="price-btn secondary">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How is this different from ChatGPT or other AI tools?</div>
+        <div class="faq-a">ChatGPT answers questions. NSAI runs your operations. It's always on, connected to your real tools (email, calendar, browser, APIs), remembers everything, and takes action — not just gives advice. Think of it as the difference between a search engine and an employee.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my data secure?</div>
+        <div class="faq-a">NSAI runs on your device or dedicated infrastructure — your data never touches shared servers. All communication is encrypted. You have full control over what NSAI can access and what it can't.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What devices does it run on?</div>
+        <div class="faq-a">Any Linux-capable device: a spare phone (Android), a Raspberry Pi, a laptop, a VPS, or our hosted infrastructure. We help you choose the best option for your needs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does setup take?</div>
+        <div class="faq-a">Most clients are fully operational within 48 hours of the initial consultation. The first week includes hands-on onboarding and optimization.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I try it before committing?</div>
+        <div class="faq-a">Yes — we offer a free consultation where we'll demo NSAI live with your actual use case, so you can see exactly what it would do for you before paying anything.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens if I want to cancel?</div>
+        <div class="faq-a">Cancel anytime, no questions asked. Your data and workflows are yours — we'll help you export everything.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final-cta" id="contact">
+  <div class="container">
+    <h2>Ready to stop doing<br><span class="gradient">everything yourself?</span></h2>
+    <p>Book a free 30-minute consultation. We'll show you exactly what NSAI can automate for your specific workflow.</p>
+    <a href="tel:+13526987333" class="btn-primary" style="display:inline-block;">Call or Text: (352) 698-7333</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Not So Holdings LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
+    item.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
