@@ -3,739 +3,988 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NSAI — Your Personal AI Operating System</title>
-<meta name="description" content="NSAI runs your business 24/7 — answering messages, monitoring markets, executing tasks. Always on. Always working.">
-<meta property="og:title" content="NSAI — Your Personal AI Operating System">
-<meta property="og:description" content="Stop doing everything yourself. NSAI automates your operations around the clock.">
-<meta property="og:url" content="https://nsai.tech">
+<title>NSAI — Not So Artificial Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- Google Analytics — add your GA4 ID below -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
 <style>
 :root {
-  --bg: #0a0a0b;
-  --bg-card: #111113;
-  --bg-card-hover: #18181b;
-  --border: #27272a;
-  --text: #fafafa;
-  --text-dim: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #f97316;
-  --accent-glow: rgba(249,115,22,0.15);
-  --accent2: #3b82f6;
-  --accent3: #10b981;
-  --gradient: linear-gradient(135deg, #f97316, #fb923c, #f59e0b);
+  --bg: #080A0F;
+  --bg-card: #0E1018;
+  --bg-card-hover: #13161F;
+  --border: rgba(0,120,255,0.1);
+  --border2: rgba(0,120,255,0.18);
+  --text: #F0F2F8;
+  --text-dim: #9299B0;
+  --text-muted: #4A4F62;
+  --blue: #0078FF;
+  --blue2: #4DA6FF;
+  --blue-bright: #00AAFF;
+  --gray: #8C909E;
+  --gray-mid: #3A3D4A;
+  --gray-dark: #1E2028;
+  --green: #4ade80;
+  --red: #f87171;
+  --orange: #f97316;
+  --cyan: #00C8FF;
+  --blue-glow: rgba(0,120,255,0.2);
+  --gradient: linear-gradient(135deg, #0055CC, #0078FF, #00AAFF);
+  --gradient-bright: linear-gradient(135deg, #0078FF, #00C8FF);
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+/* matte gray texture on cards */
+.bg-card { background: var(--bg-card); }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* ─── Noise overlay ─── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-/* ─── Nav ─── */
+/* NAV */
 nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  padding: 16px 24px;
-  background: rgba(10,10,11,0.8);
-  backdrop-filter: blur(20px);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(5,5,7,0.92); backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 100%;
 }
-.nav-inner { max-width: 1140px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-.logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
-.logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links { display: flex; gap: 32px; }
-.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
-.nav-links a:hover { color: var(--text); }
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 62px;
+}
+.logo {
+  font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; text-decoration: none;
+  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; display: block; margin-top: -4px; -webkit-text-fill-color: var(--text-muted); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+.nav-links a:hover { color: var(--blue2); }
 .nav-cta {
-  background: var(--gradient);
-  color: #000; font-weight: 600; font-size: 0.875rem;
-  padding: 8px 20px; border-radius: 8px; text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--gradient); color: #fff; font-weight: 700; font-size: 0.85rem;
+  padding: 9px 22px; border-radius: 8px; text-decoration: none; transition: opacity 0.2s;
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+.nav-cta:hover { opacity: 0.88; }
+@media(max-width:640px){ .nav-links { display: none; } }
 
-/* ─── Hero ─── */
+/* HERO */
 .hero {
-  padding: 160px 0 100px;
-  text-align: center;
-  position: relative;
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 100px 0 80px; position: relative; text-align: center;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 80px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  pointer-events: none;
+.hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hero-glow {
+  position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse, rgba(0,120,255,0.12) 0%, rgba(0,200,255,0.04) 45%, transparent 70%);
 }
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,120,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,120,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+}
+.hero-content { position: relative; z-index: 1; }
 .badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 6px 16px; border-radius: 100px;
-  font-size: 0.8rem; color: var(--text-dim);
-  margin-bottom: 24px;
+  background: rgba(0,120,255,0.08); border: 1px solid rgba(0,120,255,0.28);
+  color: var(--blue2); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.07em;
+  padding: 7px 16px; border-radius: 99px; margin-bottom: 28px; text-transform: uppercase;
 }
-.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-
-h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
-  margin-bottom: 20px;
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 900; letter-spacing: -0.04em;
+  line-height: 1.05; margin-bottom: 24px;
 }
-h1 .gradient { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
+.hero h1 .grad { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-sub {
-  font-size: 1.2rem;
-  color: var(--text-dim);
-  max-width: 580px;
-  margin: 0 auto 40px;
-  line-height: 1.7;
+  font-size: 1.15rem; color: var(--text-dim); max-width: 560px;
+  margin: 0 auto 44px; line-height: 1.75;
 }
-
-.hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 72px; }
 .btn-primary {
-  background: var(--gradient);
-  color: #000; font-weight: 700; font-size: 1rem;
-  padding: 14px 32px; border-radius: 12px; text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none; cursor: pointer;
+  background: var(--gradient); color: #fff; font-weight: 800; font-size: 1rem;
+  padding: 15px 36px; border-radius: 10px; text-decoration: none;
+  box-shadow: 0 4px 28px var(--blue-glow); transition: transform 0.2s, box-shadow 0.2s;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
-.btn-secondary {
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px var(--blue-glow); }
+.btn-ghost {
+  background: transparent; border: 1px solid rgba(140,144,158,0.3); color: var(--text);
+  font-weight: 600; font-size: 1rem; padding: 15px 36px; border-radius: 10px;
+  text-decoration: none; transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue2); }
+
+/* STAT BAR */
+.stat-bar {
+  display: flex; border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; max-width: 680px; margin: 0 auto;
+}
+.stat-item { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); }
+.stat-item:last-child { border-right: none; }
+.stat-val { font-size: 1.6rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+/* SECTIONS */
+section { padding: 96px 0; }
+.section-label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.1em; color: var(--blue2); text-transform: uppercase; margin-bottom: 12px; }
+.section-title { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 14px; }
+.section-sub { color: var(--text-dim); font-size: 1rem; max-width: 500px; line-height: 1.7; }
+.section-head { margin-bottom: 60px; }
+.section-head.center { text-align: center; }
+.section-head.center .section-sub { margin: 0 auto; }
+
+/* TIME WASTERS */
+.wasters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.waster-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  color: var(--text); font-weight: 600; font-size: 1rem;
-  padding: 14px 32px; border-radius: 12px; text-decoration: none;
-  transition: all 0.2s;
+  border-radius: 14px; padding: 24px; position: relative; overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-card-hover); }
+.waster-card:hover { border-color: rgba(0,120,255,0.3); transform: translateY(-2px); }
+.waster-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gradient); opacity: 0; transition: opacity 0.2s;
+}
+.waster-card:hover::before { opacity: 1; }
+.waster-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.waster-icon { font-size: 1.4rem; }
+.waster-time {
+  font-size: 0.7rem; font-weight: 700; padding: 3px 9px; border-radius: 99px;
+  background: rgba(248,113,113,0.1); color: var(--red); letter-spacing: 0.04em;
+}
+.waster-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+.waster-desc { font-size: 0.81rem; color: var(--text-dim); margin-bottom: 14px; line-height: 1.55; }
+.waster-fix { font-size: 0.78rem; color: var(--blue2); font-weight: 600; }
+.waster-fix span { color: var(--text-muted); font-weight: 400; }
 
-/* ─── Terminal Demo ─── */
-.terminal-wrap {
-  max-width: 720px;
-  margin: 60px auto 0;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+/* WHAT IS NSAI */
+.what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+@media(max-width:768px){ .what-grid { grid-template-columns: 1fr; gap: 36px; } }
+.terminal-block {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 0 40px rgba(0,120,255,0.07);
 }
-.terminal-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 16px;
-  background: #18181b;
+.t-bar {
+  background: #0C0E16; padding: 12px 16px; display: flex; align-items: center; gap: 8px;
   border-bottom: 1px solid var(--border);
 }
-.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-.terminal-dot.r { background: #ef4444; }
-.terminal-dot.y { background: #eab308; }
-.terminal-dot.g { background: #22c55e; }
-.terminal-title { flex:1; text-align:center; font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
-.terminal-body {
-  padding: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  line-height: 1.8;
-  min-height: 220px;
+.dot { width: 11px; height: 11px; border-radius: 50%; }
+.dot.r { background:#ff5f57; } .dot.y { background:#febc2e; } .dot.g { background:#28c840; }
+.t-title { font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-left: 6px; }
+.t-body { padding: 22px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 2; min-height: 280px; }
+.t-p { color: var(--blue2); } .t-c { color: var(--text); } .t-o { color: var(--text-dim); }
+.t-h { color: var(--cyan); } .t-ok { color: var(--green); font-weight: 600; }
+.t-warn { color: var(--orange); }
+.t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--blue2); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+.what-points { display: flex; flex-direction: column; gap: 24px; }
+.point { display: flex; gap: 16px; align-items: flex-start; }
+.point-icon {
+  width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+  background: rgba(0,120,255,0.1);
 }
-.terminal-body .prompt { color: var(--accent); }
-.terminal-body .cmd { color: var(--text); }
-.terminal-body .output { color: var(--text-dim); }
-.terminal-body .success { color: var(--accent3); }
-.terminal-body .info { color: var(--accent2); }
+.point h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.point p { font-size: 0.83rem; color: var(--text-dim); }
 
-.line { opacity: 0; animation: fadeIn 0.3s forwards; }
-.line:nth-child(1) { animation-delay: 0.3s; }
-.line:nth-child(2) { animation-delay: 0.9s; }
-.line:nth-child(3) { animation-delay: 1.4s; }
-.line:nth-child(4) { animation-delay: 2.0s; }
-.line:nth-child(5) { animation-delay: 2.5s; }
-.line:nth-child(6) { animation-delay: 3.0s; }
-.line:nth-child(7) { animation-delay: 3.5s; }
-@keyframes fadeIn { to { opacity: 1; } }
-
-/* ─── Section ─── */
-section { padding: 100px 0; }
-.section-label {
-  font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+/* LIVE DEMO */
+.demo-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
 }
-.section-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  font-weight: 800; letter-spacing: -0.02em;
-  margin-bottom: 16px;
+@media(max-width:768px){ .demo-wrap { grid-template-columns: 1fr; } }
+.demo-form-card {
+  background: var(--bg-card); border: 1px solid rgba(0,120,255,0.22);
+  border-radius: 16px; padding: 32px;
 }
-.section-desc {
-  color: var(--text-dim); font-size: 1.05rem;
-  max-width: 560px; margin-bottom: 48px;
+.demo-form-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.demo-form-card p { font-size: 0.83rem; color: var(--text-dim); margin-bottom: 24px; }
+.demo-field { margin-bottom: 14px; }
+.demo-field label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.demo-field input, .demo-field select, .demo-field textarea {
+  width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 11px 14px; color: var(--text); font-family: inherit;
+  font-size: 0.85rem; outline: none; transition: border-color 0.2s;
 }
-
-/* ─── Capabilities Grid ─── */
-.cap-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
+.demo-field input:focus, .demo-field select:focus, .demo-field textarea:focus { border-color: var(--blue); }
+.demo-field select option { background: #111113; }
+.demo-field textarea { resize: vertical; min-height: 80px; }
+.demo-submit {
+  width: 100%; background: var(--gradient); color: #fff; font-weight: 700; font-size: 0.9rem;
+  padding: 13px; border: none; border-radius: 10px; cursor: pointer; margin-top: 8px;
+  transition: opacity 0.2s, transform 0.15s;
 }
-.cap-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  transition: all 0.3s;
+.demo-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+.demo-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.demo-note { font-size: 0.71rem; color: var(--text-muted); margin-top: 10px; text-align: center; }
+.demo-terminal {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; min-height: 360px;
+  box-shadow: 0 0 40px rgba(0,120,255,0.06);
 }
-.cap-card:hover {
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--accent-glow);
-}
-.cap-icon {
-  font-size: 1.8rem;
-  margin-bottom: 16px;
-  display: inline-block;
-}
-.cap-card h3 {
-  font-size: 1.1rem; font-weight: 700;
-  margin-bottom: 8px;
-}
-.cap-card p {
-  color: var(--text-dim); font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-/* ─── How It Works ─── */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  counter-reset: step;
-}
-.step {
-  position: relative;
-  padding: 32px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  counter-increment: step;
-}
-.step::before {
-  content: counter(step);
-  position: absolute; top: -14px; left: 28px;
-  background: var(--gradient);
-  color: #000; font-weight: 800; font-size: 0.85rem;
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; margin-top: 4px; }
-.step p { color: var(--text-dim); font-size: 0.9rem; }
-
-/* ─── Use Cases ─── */
-.use-cases {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-}
-.use-case {
-  display: flex; gap: 16px; align-items: flex-start;
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: border-color 0.3s;
-}
-.use-case:hover { border-color: var(--accent); }
-.use-case .icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-.use-case h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-.use-case p { color: var(--text-dim); font-size: 0.85rem; }
-
-/* ─── Pricing ─── */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-.price-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-  position: relative;
-  transition: all 0.3s;
-}
-.price-card.featured {
-  border-color: var(--accent);
-  box-shadow: 0 0 40px var(--accent-glow);
-}
-.price-card.featured::before {
-  content: 'MOST POPULAR';
-  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--gradient);
-  color: #000; font-weight: 700; font-size: 0.7rem;
-  padding: 4px 14px; border-radius: 100px;
-  letter-spacing: 0.05em;
-}
-.price-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-.price-card .price-desc { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
-.price-amount {
-  font-size: 2.5rem; font-weight: 900; letter-spacing: -0.03em;
-  margin-bottom: 4px;
-}
-.price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-dim); }
-.price-card ul {
-  list-style: none; margin: 20px 0 28px;
-}
-.price-card li {
-  padding: 6px 0;
-  color: var(--text-dim); font-size: 0.9rem;
-  display: flex; align-items: center; gap: 10px;
-}
-.price-card li::before {
-  content: '✓';
-  color: var(--accent3); font-weight: 700; font-size: 0.85rem;
-}
-.price-btn {
-  display: block; text-align: center;
-  padding: 12px; border-radius: 10px;
-  font-weight: 600; font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.price-btn.primary { background: var(--gradient); color: #000; }
-.price-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
-.price-btn.secondary { background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text); }
-.price-btn.secondary:hover { border-color: var(--text-muted); }
-
-/* ─── FAQ ─── */
-.faq-list { max-width: 700px; }
-.faq-item {
+.demo-t-bar {
+  background: #0C0E16; padding: 12px 16px; display: flex; align-items: center; gap: 8px;
   border-bottom: 1px solid var(--border);
-  padding: 20px 0;
 }
-.faq-q {
-  font-weight: 600; font-size: 1rem;
-  cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.faq-q::after { content: '+'; font-size: 1.3rem; color: var(--text-muted); transition: transform 0.3s; }
-.faq-item.open .faq-q::after { transform: rotate(45deg); }
-.faq-a {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.3s, padding 0.3s;
-  color: var(--text-dim); font-size: 0.9rem;
-}
-.faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+.demo-t-label { font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-left: 6px; flex: 1; }
+.demo-status { font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; letter-spacing: 0.06em; }
+.demo-status.idle { background: rgba(82,82,91,0.3); color: var(--text-muted); }
+.demo-status.live { background: rgba(74,222,128,0.15); color: var(--green); }
+.demo-status.thinking { background: rgba(139,92,246,0.15); color: var(--purple2); }
+.demo-t-body { padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.9; min-height: 300px; }
 
-/* ─── CTA ─── */
-.final-cta {
-  text-align: center;
-  padding: 100px 0;
-  position: relative;
+/* BRANDS */
+.brands-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.brand-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s;
+  text-decoration: none; color: inherit; display: block;
 }
-.final-cta::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 400px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+.brand-card:hover { border-color: rgba(0,120,255,0.35); transform: translateY(-3px); }
+.brand-emoji { font-size: 1.8rem; margin-bottom: 14px; }
+.brand-tag {
+  display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px;
+  background: rgba(0,120,255,0.1); color: var(--blue2);
+}
+.brand-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+.brand-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+.brand-link { font-size: 0.78rem; color: var(--blue-bright); margin-top: 14px; display: block; }
+
+/* PRODUCTS */
+.prod-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; justify-content: center; }
+.prod-filter {
+  background: transparent; border: 1px solid var(--border2); color: var(--text-dim);
+  font-size: 0.78rem; font-weight: 600; padding: 7px 16px; border-radius: 99px; cursor: pointer;
+  transition: all 0.2s; font-family: inherit;
+}
+.prod-filter:hover { border-color: var(--blue); color: var(--blue2); }
+.prod-filter.active { background: rgba(0,120,255,0.12); border-color: var(--blue); color: var(--blue2); }
+.products-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.prod-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.15s;
+}
+.prod-card:hover { border-color: rgba(0,120,255,0.3); transform: translateY(-2px); }
+.prod-card.hidden { display: none; }
+.prod-icon { font-size: 1.5rem; margin-bottom: 12px; }
+.prod-cat { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue2); margin-bottom: 6px; }
+.prod-cat.cyan { color: var(--cyan); }
+.prod-cat.orange { color: var(--orange); }
+.prod-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+.prod-card p { font-size: 0.81rem; color: var(--text-dim); margin-bottom: 16px; }
+.prod-price { font-size: 1.1rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.prod-price span { font-size: 0.78rem; font-weight: 400; -webkit-text-fill-color: var(--text-muted); }
+.prod-tag {
+  display: inline-block; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 99px; margin-bottom: 8px;
+  background: rgba(248,113,113,0.1); color: var(--red);
+}
+.marketplace-cta { text-align: center; margin-top: 48px; }
+
+/* TECH SHOWCASE */
+.tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.tech-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.tech-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
+.tech-dot.blue { background: var(--cyan); }
+.tech-dot.purple { background: var(--purple); }
+.tech-dot.gray { background: var(--text-muted); animation: none; }
+@keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 currentColor;} 50%{opacity:0.7;} }
+.tech-name { font-size: 0.85rem; font-weight: 600; }
+.tech-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ABOUT */
+.about-box {
+  background: linear-gradient(135deg, #08090F, #090C14);
+  border: 1px solid rgba(0,120,255,0.18); border-radius: 20px;
+  padding: 64px 56px; position: relative; overflow: hidden;
+}
+@media(max-width:640px){ .about-box { padding: 40px 24px; } }
+.about-box::before {
+  content: ''; position: absolute; top: -120px; right: -80px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,120,255,0.07), transparent 65%);
   pointer-events: none;
 }
-.final-cta h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900; letter-spacing: -0.03em;
-  margin-bottom: 16px;
-}
-.final-cta p {
-  color: var(--text-dim); font-size: 1.1rem;
-  max-width: 480px; margin: 0 auto 32px;
-}
+.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+@media(max-width:768px){ .about-inner { grid-template-columns: 1fr; gap: 32px; } }
+.about-quote { font-size: 1.5rem; font-weight: 800; line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 20px; }
+.about-quote em { font-style: normal; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.about-body { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 28px; }
+.about-sig { font-size: 0.85rem; color: var(--text-muted); }
+.about-sig strong { color: var(--text); }
+.about-facts { display: flex; flex-direction: column; gap: 16px; }
+.fact { display: flex; gap: 14px; align-items: flex-start; }
+.fact-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.fact h5 { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
+.fact p { font-size: 0.8rem; color: var(--text-dim); }
 
-/* ─── Footer ─── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 32px 0;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-}
+/* CTA FINAL */
+.cta-final { text-align: center; padding: 96px 0; }
+.cta-final h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px; }
+.cta-final p { color: var(--text-dim); font-size: 1rem; max-width: 460px; margin: 0 auto 40px; }
 
-/* ─── Mobile ─── */
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .cap-grid, .steps, .pricing-grid, .use-cases { grid-template-columns: 1fr; }
-  .hero { padding: 130px 0 60px; }
-  section { padding: 60px 0; }
-}
+/* FOOTER */
+footer { border-top: 1px solid var(--border); padding: 44px 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer-logo { font-size: 1.1rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--blue2); }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">⚡ <span>NSAI</span></div>
+    <a class="logo" href="/">
+      NSAI ⚡
+      <span class="logo-sub">Not So Artificial Intelligence</span>
+    </a>
     <div class="nav-links">
-      <a href="#capabilities">Capabilities</a>
-      <a href="#how">How It Works</a>
-      <a href="#usecases">Use Cases</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#wasters">Time Wasters</a>
+      <a href="#what">What We Do</a>
+      <a href="#demo">Live Demo</a>
+      <a href="marketplace/">Marketplace</a>
+      <a href="https://youtube.com/@nsaitech" target="_blank" style="color:var(--red)">▶ YouTube</a>
+      <a href="https://twitch.tv/nsai_nub" target="_blank" style="color:#a970ff">● Twitch</a>
     </div>
-    <a href="#contact" class="nav-cta">Get Started</a>
+    <a class="nav-cta" href="#demo">Try It Live →</a>
   </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="badge"><span class="dot"></span> Always on. Always working.</div>
-    <h1>Your Own <span class="gradient">AI Operating System</span></h1>
-    <p class="hero-sub">
-      NSAI runs on your device, connected to your life. It researches, automates, monitors, and executes — so you can focus on what actually matters.
-    </p>
-    <div class="hero-ctas">
-      <a href="#contact" class="btn-primary">Start Free Consultation</a>
-      <a href="#capabilities" class="btn-secondary">See What It Does →</a>
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="badge">⚡ Not So Holdings LLC — Wesley Chapel, FL</div>
+    <h1>The AI Operating System<br>for <span class="grad">Real Businesses</span></h1>
+    <p class="hero-sub">We build autonomous AI agents, automation stacks, and intelligence tools that let small businesses operate like they have a full tech team — without the overhead.</p>
+    <div class="cta-row">
+      <a href="#demo" class="btn-primary">Try the Live Demo</a>
+      <a href="#wasters" class="btn-ghost">See What We Kill →</a>
     </div>
+    <div class="stat-bar">
+      <div class="stat-item"><div class="stat-val">24/7</div><div class="stat-lbl">Always On</div></div>
+      <div class="stat-item"><div class="stat-val">10+</div><div class="stat-lbl">Live Products</div></div>
+      <div class="stat-item"><div class="stat-val">$0</div><div class="stat-lbl">Per Hour (AI)</div></div>
+      <div class="stat-item"><div class="stat-val">2hrs</div><div class="stat-lbl">To Deploy</div></div>
+    </div>
+  </div>
+</section>
 
-    <div class="terminal-wrap">
-      <div class="terminal-bar">
-        <div class="terminal-dot r"></div>
-        <div class="terminal-dot y"></div>
-        <div class="terminal-dot g"></div>
-        <div class="terminal-title">nsai — live session</div>
+<!-- TIME WASTERS -->
+<section id="wasters">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-label">Biggest Time Wasters</div>
+      <h2 class="section-title">What's Eating Your Week?</h2>
+      <p class="section-sub">The average business owner wastes 20+ hours a week on tasks AI can handle. Here's what NSAI kills.</p>
+    </div>
+    <div class="wasters-grid">
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">📧</div>
+          <div class="waster-time">~6 hrs/week</div>
+        </div>
+        <div class="waster-title">Follow-Ups & Cold Outreach</div>
+        <div class="waster-desc">Writing the same messages, forgetting to follow up, leads going cold because you got busy. This is pure automation territory.</div>
+        <div class="waster-fix">NSAI Kills It → <span>NSAI Operator (auto follow-up sequences)</span></div>
       </div>
-      <div class="terminal-body">
-        <div class="line"><span class="prompt">you › </span><span class="cmd">What happened in my inbox overnight?</span></div>
-        <div class="line"><span class="output">Scanning 14 new emails...</span></div>
-        <div class="line"><span class="success">✓ 2 require action, 4 FYI, 8 filtered to archive</span></div>
-        <div class="line"><span class="info">→ Invoice from Stripe ($2,400) — due Friday</span></div>
-        <div class="line"><span class="info">→ Partnership reply from Acme Corp — they're in</span></div>
-        <div class="line"><span class="output">I've drafted a reply to Acme and flagged the invoice for payment Thursday.</span></div>
-        <div class="line"><span class="prompt">you › </span><span class="cmd">Perfect. Handle it.</span></div>
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">📰</div>
+          <div class="waster-time">~4 hrs/week</div>
+        </div>
+        <div class="waster-title">Morning Research & Market Briefs</div>
+        <div class="waster-desc">Scrolling news, pulling numbers, building the same morning brief manually. An AI can do this before you wake up.</div>
+        <div class="waster-fix">NSAI Kills It → <span>Pre-Market Intel Bot (delivered to Telegram)</span></div>
+      </div>
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">🗓️</div>
+          <div class="waster-time">~3 hrs/week</div>
+        </div>
+        <div class="waster-title">Scheduling Back-and-Forth</div>
+        <div class="waster-desc">"Does Tuesday work?" — "How about Wednesday?" — "Actually can we do Thursday?" This should be one link.</div>
+        <div class="waster-fix">NSAI Kills It → <span>Automated booking + NSAI Operator integration</span></div>
+      </div>
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">📋</div>
+          <div class="waster-time">~5 hrs/week</div>
+        </div>
+        <div class="waster-title">Manual Data Entry & Reporting</div>
+        <div class="waster-desc">Copy-pasting between apps, building the same reports, manually logging transactions. Connect once, automate forever.</div>
+        <div class="waster-fix">NSAI Kills It → <span>Automation Starter Pack (n8n workflows)</span></div>
+      </div>
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">🔍</div>
+          <div class="waster-time">~4 hrs/week</div>
+        </div>
+        <div class="waster-title">Competitor & Client Research</div>
+        <div class="waster-desc">Manually digging through websites, socials, and reviews to understand a prospect or competitor. NSAI does this in seconds.</div>
+        <div class="waster-fix">NSAI Kills It → <span>NSAI Operator (on-demand intel briefs)</span></div>
+      </div>
+      <div class="waster-card">
+        <div class="waster-header">
+          <div class="waster-icon">🪙</div>
+          <div class="waster-time">~3 hrs/week</div>
+        </div>
+        <div class="waster-title">Manual Product Grading & Appraisal</div>
+        <div class="waster-desc">If you deal in physical goods, coins, collectibles, or inventory — manual grading is a bottleneck. AI vision handles it.</div>
+        <div class="waster-fix">NSAI Kills It → <span>Coin Appraisal App (GPT-4o Vision)</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CAPABILITIES ═══ -->
-<section id="capabilities">
+<!-- WHAT IS NSAI -->
+<section id="what" style="background: linear-gradient(180deg, transparent, rgba(139,92,246,0.02), transparent);">
   <div class="container">
-    <div class="section-label">Capabilities</div>
-    <h2 class="section-title">Not a chatbot. An operator.</h2>
-    <p class="section-desc">
-      NSAI doesn't wait for instructions. It monitors, decides, and acts — with your permission, on your behalf.
-    </p>
-    <div class="cap-grid">
-      <div class="cap-card">
-        <div class="cap-icon">🔍</div>
-        <h3>Deep Research</h3>
-        <p>Web search, content extraction, and synthesis. Get market intelligence, competitive analysis, or answers to complex questions — delivered, not linked.</p>
+    <div class="what-grid">
+      <div class="terminal-block">
+        <div class="t-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <span class="t-title">nsai — live operator session</span>
+        </div>
+        <div class="t-body" id="autoTerminal">
+          <span class="t-cursor"></span>
+        </div>
       </div>
-      <div class="cap-card">
-        <div class="cap-icon">⚙️</div>
-        <h3>Workflow Automation</h3>
-        <p>Connects to n8n, APIs, and custom scripts. Automate repetitive work: data entry, report generation, notifications, scheduling — anything with a trigger.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-icon">📊</div>
-        <h3>Proactive Monitoring</h3>
-        <p>Watches your inbox, calendar, markets, news — whatever matters. Alerts you when something needs attention. Handles the rest silently.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-icon">🌐</div>
-        <h3>Browser Automation</h3>
-        <p>Full Chromium browser control. Fill forms, scrape data, navigate complex sites, take screenshots. If a human can do it in a browser, NSAI can too.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-icon">💬</div>
-        <h3>Multi-Channel Comms</h3>
-        <p>Talk to NSAI on Telegram, WhatsApp, Discord, Signal, or Slack. It meets you wherever you already are.</p>
-      </div>
-      <div class="cap-card">
-        <div class="cap-icon">🧠</div>
-        <h3>Persistent Memory</h3>
-        <p>Remembers your preferences, past decisions, ongoing projects. Builds context over time. Gets better the longer you use it.</p>
+      <div>
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Your Business Doesn't Sleep. Neither Does NSAI.</h2>
+        <div class="what-points">
+          <div class="point">
+            <div class="point-icon">🤖</div>
+            <div>
+              <h4>Autonomous AI Agents</h4>
+              <p>Deploy an AI operator that manages comms, follows up with clients, does research, and runs tasks — without you asking every time.</p>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">⚡</div>
+            <div>
+              <h4>Workflow Automation</h4>
+              <p>Connect your tools, eliminate repetitive work, and build systems that scale with you — not against you.</p>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">📊</div>
+            <div>
+              <h4>Business Intelligence</h4>
+              <p>Daily market reports, client research, competitive analysis — delivered automatically to wherever you work.</p>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">🔒</div>
+            <div>
+              <h4>Runs on Your Hardware</h4>
+              <p>Your device, your VPS, your data. No third-party cloud dependency. Full control, full privacy.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ HOW IT WORKS ═══ -->
-<section id="how" style="background: #0d0d0f;">
+<!-- LIVE DEMO -->
+<section id="demo" style="background: linear-gradient(180deg, transparent, rgba(6,182,212,0.02), transparent);">
   <div class="container">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Up and running in 48 hours</h2>
-    <p class="section-desc">
-      We handle the entire setup. You just tell us what you need.
-    </p>
-    <div class="steps">
-      <div class="step">
-        <h3>Consultation</h3>
-        <p>30-minute call. We learn your workflow, pain points, and what you want automated. No jargon, no upsells.</p>
+    <div class="section-head center">
+      <div class="section-label">Live Demo</div>
+      <h2 class="section-title">Ask NUB Anything About Your Business</h2>
+      <p class="section-sub">This isn't canned. Your question goes to the real NSAI operator — right now.</p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo-form-card">
+        <h3>Run a Real Analysis</h3>
+        <p>Tell NUB about your business. Get an actual AI recommendation back — live, not scripted.</p>
+        <div class="demo-field">
+          <label>Your Name</label>
+          <input type="text" id="demoName" placeholder="John Smith" maxlength="60">
+        </div>
+        <div class="demo-field">
+          <label>Business Type</label>
+          <select id="demoType">
+            <option value="">— Select your industry —</option>
+            <option>Retail / E-Commerce</option>
+            <option>Restaurant / Food Service</option>
+            <option>Real Estate</option>
+            <option>Health & Wellness</option>
+            <option>Trades / Contractor</option>
+            <option>Professional Services</option>
+            <option>Creative / Media</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="demo-field">
+          <label>Biggest Challenge Right Now</label>
+          <textarea id="demoChallenge" placeholder="e.g. I spend too much time chasing leads that never respond..." maxlength="300"></textarea>
+        </div>
+        <button class="demo-submit" id="demoBtn" onclick="runDemo()">Run Live Analysis →</button>
+        <div class="demo-note">No signup. No spam. Your input goes directly to the AI — not stored, not sold.</div>
       </div>
-      <div class="step">
-        <h3>Custom Build</h3>
-        <p>We configure your NSAI instance — personality, integrations, workflows, and channel connections — tailored to your business.</p>
-      </div>
-      <div class="step">
-        <h3>Deploy & Train</h3>
-        <p>Installed on your device or our hosted infrastructure. We walk you through everything and stick around for the first week.</p>
+      <div class="demo-terminal">
+        <div class="demo-t-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <span class="demo-t-label" id="demoLabel">nub — demo mode</span>
+          <span class="demo-status idle" id="demoStatus">IDLE</span>
+        </div>
+        <div class="demo-t-body" id="demoOutput">
+          <span style="color:var(--text-muted)">// Submit your business info to see NUB respond in real time.</span><br><br>
+          <span style="color:var(--text-muted)">// NUB is the NSAI autonomous operator — it runs 24/7,</span><br>
+          <span style="color:var(--text-muted)">// handles research, follow-ups, analysis, and execution.</span><br><br>
+          <span style="color:var(--text-muted)">// This demo runs in restricted mode:</span><br>
+          <span style="color:var(--text-muted)">// no private data access, no system commands.</span><br>
+          <span style="color:var(--text-muted)">// Just raw AI strategy for your business.</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ USE CASES ═══ -->
-<section id="usecases">
+<!-- BRANDS -->
+<section id="brands">
   <div class="container">
-    <div class="section-label">Use Cases</div>
-    <h2 class="section-title">Built for people who build things</h2>
-    <p class="section-desc">
-      Founders, operators, creators, investors — anyone drowning in busy work who'd rather focus on the real work.
-    </p>
-    <div class="use-cases">
-      <div class="use-case">
-        <div class="icon">🏗️</div>
+    <div class="section-head">
+      <div class="section-label">Not So Holdings LLC</div>
+      <h2 class="section-title">The Portfolio</h2>
+      <p class="section-sub">NSAI is one division of Not So Holdings LLC — a Florida-based holding company building across tech, media, ministry, and beyond.</p>
+    </div>
+    <div class="brands-grid">
+      <div class="brand-card">
+        <div class="brand-emoji">⚡</div>
+        <div class="brand-tag">Tech Division</div>
+        <h3>NSAI</h3>
+        <p>The AI arm. Autonomous agents, automation products, and AI infrastructure for small businesses.</p>
+        <span class="brand-link">nsai.tech →</span>
+      </div>
+      <div class="brand-card">
+        <div class="brand-emoji">🎨</div>
+        <div class="brand-tag">Creative</div>
+        <h3>Mr. NSA</h3>
+        <p>The creative division. Music, content, media production, and artistic ventures under the Not So umbrella.</p>
+        <span class="brand-link">@notsoinc →</span>
+      </div>
+      <div class="brand-card">
+        <div class="brand-emoji">🏛️</div>
+        <div class="brand-tag">Ministry</div>
+        <h3>N.S.I.M.</h3>
+        <p>Not So Incorporated Ministries — 508(c)(1)(a) faith-based nonprofit. Community, faith, and service.</p>
+        <span class="brand-link">notsoinc.org →</span>
+      </div>
+      <div class="brand-card">
+        <div class="brand-emoji">🎵</div>
+        <div class="brand-tag">Music Label</div>
+        <h3>NSAMG</h3>
+        <p>Not So Music Group. Original productions, artist development, and 432hz sound engineering.</p>
+        <span class="brand-link">Coming soon →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS PREVIEW -->
+<section id="products" style="background: linear-gradient(180deg, transparent, rgba(139,92,246,0.02), transparent);">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-label">Marketplace</div>
+      <h2 class="section-title">AI Products Built to Deploy</h2>
+      <p class="section-sub">Pre-built, tested, ready to run. No dev team required.</p>
+    </div>
+    <div class="prod-filters">
+      <button class="prod-filter active" onclick="filterProds('all', this)">All Products</button>
+      <button class="prod-filter" onclick="filterProds('time-waster', this)">Kills Time Wasters</button>
+      <button class="prod-filter" onclick="filterProds('saas', this)">SaaS / Recurring</button>
+      <button class="prod-filter" onclick="filterProds('download', this)">One-Time</button>
+    </div>
+    <div class="products-row" id="prodGrid">
+      <div class="prod-card" data-cat="saas time-waster">
+        <div class="prod-tag">Kills: Follow-ups · Research</div>
+        <div class="prod-icon">🤖</div>
+        <div class="prod-cat">SaaS Bot</div>
+        <h3>NSAI Operator</h3>
+        <p>Your own autonomous AI agent. Handles comms, scheduling, research, and execution 24/7.</p>
+        <div class="prod-price">$297<span>/mo</span></div>
+      </div>
+      <div class="prod-card" data-cat="saas time-waster">
+        <div class="prod-tag">Kills: Morning Research</div>
+        <div class="prod-icon">📊</div>
+        <div class="prod-cat cyan">Intel Bot</div>
+        <h3>Pre-Market Intel Bot</h3>
+        <p>Daily AI market briefings delivered to Telegram or Discord before the bell. M–F, automated.</p>
+        <div class="prod-price">$49<span>/mo</span></div>
+      </div>
+      <div class="prod-card" data-cat="saas time-waster">
+        <div class="prod-tag">Kills: Manual Grading</div>
+        <div class="prod-icon">🪙</div>
+        <div class="prod-cat orange">Revenue Bot</div>
+        <h3>Coin Appraisal App</h3>
+        <p>AI-graded coin appraisals using GPT-4o Vision. Fully automated, PayPal checkout included.</p>
+        <div class="prod-price">$7.99<span>/appraisal</span></div>
+      </div>
+      <div class="prod-card" data-cat="download time-waster">
+        <div class="prod-tag">Kills: Manual Workflows</div>
+        <div class="prod-icon">⚡</div>
+        <div class="prod-cat">Digital Download</div>
+        <h3>Automation Starter Pack</h3>
+        <p>15+ n8n workflow templates + Tasker profiles. Deploy in 30 minutes, no code required.</p>
+        <div class="prod-price">$7<span> one-time</span></div>
+      </div>
+      <div class="prod-card" data-cat="saas">
+        <div class="prod-icon">🔍</div>
+        <div class="prod-cat">Security</div>
+        <h3>ALPR + OSINT System</h3>
+        <p>License plate recognition + open-source intelligence stack for property and fleet security.</p>
+        <div class="prod-price">Custom</div>
+      </div>
+      <div class="prod-card" data-cat="saas time-waster">
+        <div class="prod-tag">Kills: All of the Above</div>
+        <div class="prod-icon">🚀</div>
+        <div class="prod-cat">Done For You</div>
+        <h3>Enterprise Setup</h3>
+        <p>Full custom NSAI stack: AI agent + automations + Discord command center + 30-day onboarding.</p>
+        <div class="prod-price">From $597<span>/mo</span></div>
+      </div>
+    </div>
+    <div class="marketplace-cta">
+      <a href="marketplace/" class="btn-primary">View Full Marketplace →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TECH SHOWCASE -->
+<section id="tech">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Tech Stack</div>
+      <h2 class="section-title">What's Under the Hood</h2>
+      <p class="section-sub">Built and running on real infrastructure. No vaporware.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item"><div class="tech-dot"></div><div><div class="tech-name">NSAI Operator</div><div class="tech-desc">Live & deployed</div></div></div>
+      <div class="tech-item"><div class="tech-dot"></div><div><div class="tech-name">n8n Automation</div><div class="tech-desc">Workflow engine</div></div></div>
+      <div class="tech-item"><div class="tech-dot"></div><div><div class="tech-name">OpenClaw Gateway</div><div class="tech-desc">AI control plane</div></div></div>
+      <div class="tech-item"><div class="tech-dot"></div><div><div class="tech-name">Coin Appraisal App</div><div class="tech-desc">GPT-4o Vision</div></div></div>
+      <div class="tech-item"><div class="tech-dot blue"></div><div><div class="tech-name">Discord Command Center</div><div class="tech-desc">Live ops hub</div></div></div>
+      <div class="tech-item"><div class="tech-dot blue"></div><div><div class="tech-name">Telegram Bot</div><div class="tech-desc">Primary interface</div></div></div>
+      <div class="tech-item"><div class="tech-dot blue"></div><div><div class="tech-name">Tasker Integration</div><div class="tech-desc">Android automation</div></div></div>
+      <div class="tech-item"><div class="tech-dot blue"></div><div><div class="tech-name">Notion Memory</div><div class="tech-desc">Long-term AI brain</div></div></div>
+      <div class="tech-item"><div class="tech-dot purple"></div><div><div class="tech-name">ALPR + OSINT</div><div class="tech-desc">Security intel</div></div></div>
+      <div class="tech-item"><div class="tech-dot purple"></div><div><div class="tech-name">SMS Monitor</div><div class="tech-desc">Comms logging</div></div></div>
+      <div class="tech-item"><div class="tech-dot purple"></div><div><div class="tech-name">thepopebot</div><div class="tech-desc">Autonomous job runner</div></div></div>
+      <div class="tech-item"><div class="tech-dot gray"></div><div><div class="tech-name">YouTube Uploader</div><div class="tech-desc">In progress</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-box">
+      <div class="about-inner">
         <div>
-          <h3>Startup Founders</h3>
-          <p>Market research, competitor monitoring, investor outreach automation, daily briefings, inbox triage.</p>
+          <div class="about-quote">"We don't operate using the words <em>'I can't.'</em>"</div>
+          <p class="about-body">
+            NSAI is built by Justin Perry through Not So Holdings LLC out of Wesley Chapel, Florida.
+            The mission is simple: build the AI infrastructure that lets real businesses — the ones run by real people, not venture-backed teams — compete at the highest level.
+            <br><br>
+            Every product we ship is something we use ourselves. If it's in the marketplace, it's running in production. No demos. No vaporware. Just tools that work.
+          </p>
+          <p class="about-sig"><strong>Justin Perry</strong> — Founder, Not So Holdings LLC<br>Minister JP · Builder · #StayAbove</p>
         </div>
-      </div>
-      <div class="use-case">
-        <div class="icon">📈</div>
-        <div>
-          <h3>Traders & Investors</h3>
-          <p>Pre-market reports, earnings monitoring, news sentiment analysis, portfolio alerts, SEC filing digests.</p>
-        </div>
-      </div>
-      <div class="use-case">
-        <div class="icon">🏢</div>
-        <div>
-          <h3>Small Business Owners</h3>
-          <p>Customer follow-ups, invoice tracking, appointment scheduling, social media monitoring, vendor management.</p>
-        </div>
-      </div>
-      <div class="use-case">
-        <div class="icon">🎨</div>
-        <div>
-          <h3>Creators & Freelancers</h3>
-          <p>Client communication, project tracking, content research, scheduling, contract management.</p>
-        </div>
-      </div>
-      <div class="use-case">
-        <div class="icon">⚖️</div>
-        <div>
-          <h3>Consultants & Agencies</h3>
-          <p>Client reporting, data gathering, proposal drafting, meeting prep, competitive intelligence.</p>
-        </div>
-      </div>
-      <div class="use-case">
-        <div class="icon">🏠</div>
-        <div>
-          <h3>Real Estate Professionals</h3>
-          <p>Market analysis, lead follow-up, listing monitoring, CMA research, showing coordination.</p>
+        <div class="about-facts">
+          <div class="fact"><div class="fact-icon">🏢</div><div><h5>Not So Holdings LLC</h5><p>Florida LLC · D&B DUNS 144091700 · Wesley Chapel, FL</p></div></div>
+          <div class="fact"><div class="fact-icon">⚖️</div><div><h5>Not So Incorporated Ministries</h5><p>508(c)(1)(a) faith nonprofit — parent organization</p></div></div>
+          <div class="fact"><div class="fact-icon">🤝</div><div><h5>Pasco EDC Partner</h5><p>Office & meeting space at the Pasco Economic Development Center</p></div></div>
+          <div class="fact"><div class="fact-icon">📍</div><div><h5>Infrastructure</h5><p>Samsung Galaxy S24 Ultra · Debian Linux · PM2 · 24/7 uptime</p></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PRICING ═══ -->
-<section id="pricing" style="background: #0d0d0f;">
+<!-- FINAL CTA -->
+<div class="cta-final">
   <div class="container">
-    <div class="section-label">Pricing</div>
-    <h2 class="section-title">Invest in leverage</h2>
-    <p class="section-desc">
-      Less than the cost of a part-time assistant. More capable than a full-time one.
-    </p>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <p class="price-desc">For individuals getting started</p>
-        <div class="price-amount">$297<span>/mo</span></div>
-        <ul>
-          <li>1 messaging channel</li>
-          <li>Core research & monitoring</li>
-          <li>5 custom workflows</li>
-          <li>Persistent memory</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#contact" class="price-btn secondary">Get Started</a>
-      </div>
-      <div class="price-card featured">
-        <h3>Operator</h3>
-        <p class="price-desc">For founders and professionals</p>
-        <div class="price-amount">$597<span>/mo</span></div>
-        <ul>
-          <li>All messaging channels</li>
-          <li>Full browser automation</li>
-          <li>Unlimited workflows</li>
-          <li>Proactive monitoring & alerts</li>
-          <li>Weekly optimization calls</li>
-          <li>Priority support</li>
-        </ul>
-        <a href="#contact" class="price-btn primary">Get Started</a>
-      </div>
-      <div class="price-card">
-        <h3>Enterprise</h3>
-        <p class="price-desc">For teams and organizations</p>
-        <div class="price-amount">Custom</div>
-        <ul>
-          <li>Multiple NSAI instances</li>
-          <li>Custom integrations & APIs</li>
-          <li>Dedicated infrastructure</li>
-          <li>White-label available</li>
-          <li>SLA & dedicated support</li>
-        </ul>
-        <a href="#contact" class="price-btn secondary">Contact Us</a>
-      </div>
+    <h2>Ready to Put AI to Work?</h2>
+    <p>Browse the marketplace, run the live demo, or reach out directly. We move fast.</p>
+    <div class="cta-row">
+      <a href="#demo" class="btn-primary">Try Live Demo</a>
+      <a href="marketplace/" class="btn-ghost">Browse Products</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══ FAQ ═══ -->
-<section id="faq">
-  <div class="container">
-    <div class="section-label">FAQ</div>
-    <h2 class="section-title">Common questions</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">How is this different from ChatGPT or other AI tools?</div>
-        <div class="faq-a">ChatGPT answers questions. NSAI runs your operations. It's always on, connected to your real tools (email, calendar, browser, APIs), remembers everything, and takes action — not just gives advice. Think of it as the difference between a search engine and an employee.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is my data secure?</div>
-        <div class="faq-a">NSAI runs on your device or dedicated infrastructure — your data never touches shared servers. All communication is encrypted. You have full control over what NSAI can access and what it can't.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What devices does it run on?</div>
-        <div class="faq-a">Any Linux-capable device: a spare phone (Android), a Raspberry Pi, a laptop, a VPS, or our hosted infrastructure. We help you choose the best option for your needs.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How long does setup take?</div>
-        <div class="faq-a">Most clients are fully operational within 48 hours of the initial consultation. The first week includes hands-on onboarding and optimization.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Can I try it before committing?</div>
-        <div class="faq-a">Yes — we offer a free consultation where we'll demo NSAI live with your actual use case, so you can see exactly what it would do for you before paying anything.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What happens if I want to cancel?</div>
-        <div class="faq-a">Cancel anytime, no questions asked. Your data and workflows are yours — we'll help you export everything.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FINAL CTA ═══ -->
-<section class="final-cta" id="contact">
-  <div class="container">
-    <h2>Ready to stop doing<br><span class="gradient">everything yourself?</span></h2>
-    <p>Book a free 30-minute strategy call. We'll map out exactly what NSAI can automate for your workflow — no fluff, no sales pitch.</p>
-
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:32px 0 40px;">
-      <a href="https://calendly.com/nsai-tech/30min" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
-        📅 Book a Free Call
-      </a>
-      <a href="sms:+13526987333" class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px;">
-        💬 Text: (352) 698-7333
-      </a>
-      <a href="/demo/" class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px;">
-        ▶ Live Demo
-      </a>
-    </div>
-
-    <div style="max-width:480px;margin:0 auto;">
-      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:20px;">Or drop your info — we'll reach out within 24 hours.</p>
-      <form action="https://formsubmit.co/jutterfly717@gmail.com" method="POST" style="display:flex;flex-direction:column;gap:12px;" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="_subject" value="New NSAI Consultation Request — nsai.tech">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://nsai.tech/?submitted=1">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <input type="text" name="name" placeholder="Your name" required
-            style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
-          <input type="text" name="business" placeholder="Business type"
-            style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
-        </div>
-        <input type="email" name="email" placeholder="Email address" required
-          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
-        <input type="tel" name="phone" placeholder="Phone (optional)"
-          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
-        <textarea name="message" placeholder="What's eating your time? (optional)" rows="3"
-          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;resize:vertical;"></textarea>
-        <button type="submit" id="submitBtn"
-          style="background:var(--gradient);border:none;border-radius:8px;padding:14px;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;letter-spacing:0.02em;">
-          Send Message →
-        </button>
-        <p id="formMsg" style="display:none;font-size:0.85rem;color:var(--accent3);text-align:center;"></p>
-      </form>
-      <p style="margin-top:16px;font-size:0.8rem;color:var(--text-muted);">
-        Or email directly: <a href="mailto:nub@nsai.tech" style="color:var(--accent);">nub@nsai.tech</a>
-      </p>
-    </div>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
   <div class="container">
-    <p>© 2026 Not So Holdings LLC &nbsp;·&nbsp; <a href="https://nsai.tech" style="color:var(--text-muted);text-decoration:none;">nsai.tech</a> &nbsp;·&nbsp; <a href="mailto:nub@nsai.tech" style="color:var(--text-muted);text-decoration:none;">nub@nsai.tech</a> &nbsp;·&nbsp; (352) 698-7333</p>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">NSAI ⚡</div>
+        <div class="footer-copy">© 2026 Not So Holdings LLC · #StayAbove</div>
+      </div>
+      <div class="footer-links">
+        <a href="marketplace/">Marketplace</a>
+        <a href="mailto:nub@nsai.tech">Contact</a>
+        <a href="https://youtube.com/@nsaitech" target="_blank">YouTube</a>
+        <a href="https://twitch.tv/nsai_nub" target="_blank">Twitch</a>
+        <a href="https://notsoinc.gumroad.com" target="_blank">Gumroad</a>
+        <a href="https://notsoinc.com" target="_blank">Not So Holdings</a>
+        <a href="https://notsoinc.org" target="_blank">Ministry</a>
+      </div>
+    </div>
   </div>
 </footer>
 
 <script>
-// FAQ accordion
-document.querySelectorAll('.faq-q').forEach(q => {
-  q.addEventListener('click', () => {
-    const item = q.parentElement;
-    document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
-    item.classList.toggle('open');
-  });
-});
+// ── Animated Terminal ────────────────────────────────────────────────────────
+const scenes = [
+  [
+    {t:'p', text:'⚡ Checking pipeline...'},
+    {t:'o', text:'  ✓ 3 client follow-ups sent automatically'},
+    {t:'o', text:'  ✓ Pre-market report → Discord #daily-briefing'},
+    {t:'o', text:'  ✓ Coin appraisal: ', inline: {t:'h', text:'2 new orders'}, suffix:' processed'},
+    {t:'blank'},
+    {t:'p', text:'⚡ Research: Natural Health Hut'},
+    {t:'o', text:'  → 847 products | No YouTube presence'},
+    {t:'o', text:'  → Content gap: 12K monthly searches'},
+    {t:'ok', text:'  → Saved to Notion ✓'},
+    {t:'blank'},
+    {t:'ok', text:'  ████████████ ALL SYSTEMS CLEAN'},
+  ],
+  [
+    {t:'p', text:'⚡ Morning brief generating...'},
+    {t:'o', text:'  → S&P futures: +0.4%'},
+    {t:'o', text:'  → CPI data drops at 8:30am EST'},
+    {t:'o', text:'  → 3 watchlist alerts triggered'},
+    {t:'ok', text:'  → Delivered to Telegram ✓'},
+    {t:'blank'},
+    {t:'p', text:'⚡ Lead follow-up sequence running'},
+    {t:'o', text:'  → Bruce Sherwood: Day 3 re-intro sent'},
+    {t:'o', text:'  → Chianina Microtopia: Proposal pinged'},
+    {t:'warn', text:'  → NW RA: No response. Escalating...'},
+    {t:'blank'},
+    {t:'ok', text:'  11 tasks completed before 9am.'},
+  ],
+  [
+    {t:'p', text:'⚡ Competitor analysis: imherbalist.com'},
+    {t:'o', text:'  → Site: WordPress, 340 products'},
+    {t:'o', text:'  → No Google Business Profile'},
+    {t:'o', text:'  → Zero social media presence'},
+    {t:'h', text:'  → Gap: 8.4K monthly organic searches missed'},
+    {t:'blank'},
+    {t:'p', text:'⚡ Generating pitch deck...'},
+    {t:'ok', text:'  → Pain points identified: 3'},
+    {t:'ok', text:'  → Revenue opportunity: $1,200-2,400/mo'},
+    {t:'ok', text:'  → Saved to Notion + Telegram ✓'},
+    {t:'blank'},
+    {t:'ok', text:'  ████████████ INTEL READY'},
+  ],
+];
 
-// Contact form
-async function handleSubmit(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const msg = document.getElementById('formMsg');
-  btn.textContent = 'Sending...'; btn.disabled = true;
-  try {
-    const res = await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { Accept: 'application/json' } });
-    if (res.ok) {
-      msg.textContent = '✓ Got it — we\'ll be in touch within 24 hours.'; msg.style.display = 'block';
-      e.target.reset(); btn.textContent = 'Sent ✓';
-    } else {
-      throw new Error();
+let sceneIdx = 0;
+const termEl = document.getElementById('autoTerminal');
+
+function typeScene(scene) {
+  termEl.innerHTML = '<span class="t-cursor"></span>';
+  let lineIdx = 0;
+
+  function nextLine() {
+    if (lineIdx >= scene.length) {
+      setTimeout(() => { sceneIdx = (sceneIdx + 1) % scenes.length; typeScene(scenes[sceneIdx]); }, 4000);
+      return;
     }
-  } catch {
-    msg.textContent = 'Something went wrong. Email us directly at nub@nsai.tech';
-    msg.style.color = '#f87171'; msg.style.display = 'block';
-    btn.textContent = 'Send Message →'; btn.disabled = false;
+    const item = scene[lineIdx++];
+    const cursor = termEl.querySelector('.t-cursor');
+
+    if (item.t === 'blank') {
+      const br = document.createElement('br');
+      termEl.insertBefore(br, cursor);
+      setTimeout(nextLine, 120);
+      return;
+    }
+
+    const line = document.createElement('div');
+    const span = document.createElement('span');
+    span.className = 't-' + item.t;
+    span.textContent = item.text;
+    line.appendChild(span);
+
+    if (item.inline) {
+      const s2 = document.createElement('span');
+      s2.className = 't-' + item.inline.t;
+      s2.textContent = item.inline.text;
+      line.appendChild(s2);
+      if (item.suffix) line.appendChild(document.createTextNode(item.suffix));
+    }
+
+    termEl.insertBefore(line, cursor);
+    setTimeout(nextLine, 280 + Math.random() * 180);
   }
+  setTimeout(nextLine, 400);
+}
+
+typeScene(scenes[0]);
+
+// ── Product Filter ───────────────────────────────────────────────────────────
+function filterProds(cat, btn) {
+  document.querySelectorAll('.prod-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.prod-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat.includes(cat)) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+// ── Live Demo ────────────────────────────────────────────────────────────────
+// Replace DEMO_WEBHOOK_URL with your n8n webhook URL once Cloudflare Tunnel is live
+const DEMO_WEBHOOK_URL = 'REPLACE_WITH_WEBHOOK_URL';
+
+function setDemoStatus(state, label) {
+  const s = document.getElementById('demoStatus');
+  const l = document.getElementById('demoLabel');
+  s.className = 'demo-status ' + state;
+  s.textContent = state.toUpperCase();
+  if (label) l.textContent = label;
+}
+
+function appendDemo(html) {
+  document.getElementById('demoOutput').innerHTML += html;
+}
+
+function typewriterAppend(el, text, speed, cb) {
+  let i = 0;
+  const span = document.createElement('span');
+  span.style.color = 'var(--text)';
+  el.appendChild(span);
+  function tick() {
+    if (i < text.length) {
+      span.textContent += text[i++];
+      el.scrollTop = el.scrollHeight;
+      setTimeout(tick, speed + Math.random() * 20);
+    } else { if (cb) cb(); }
+  }
+  tick();
+}
+
+async function runDemo() {
+  const name = document.getElementById('demoName').value.trim() || 'Anonymous';
+  const type = document.getElementById('demoType').value || 'General Business';
+  const challenge = document.getElementById('demoChallenge').value.trim();
+
+  if (!challenge) {
+    document.getElementById('demoChallenge').focus();
+    return;
+  }
+
+  const btn = document.getElementById('demoBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending to NUB...';
+
+  const out = document.getElementById('demoOutput');
+  out.innerHTML = '';
+  setDemoStatus('thinking', 'nub — analyzing...');
+
+  // Show intake lines
+  const lines = [
+    {color:'var(--purple2)', text:`⚡ Demo request from: ${name}`},
+    {color:'var(--text-dim)', text:`  → Business type: ${type}`},
+    {color:'var(--text-dim)', text:`  → Challenge: "${challenge.substring(0,80)}${challenge.length>80?'...':''}"`},
+    {color:'var(--text-dim)', text:`  → Mode: RESTRICTED (no private data access)`},
+    {color:'var(--text-muted)', text:``},
+    {color:'var(--cyan)', text:`⚡ Routing to NUB...`},
+    {color:'var(--text-muted)', text:``},
+  ];
+
+  let lineDelay = 0;
+  lines.forEach((l, i) => {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.style.color = l.color;
+      div.style.fontFamily = 'JetBrains Mono, monospace';
+      div.style.fontSize = '0.78rem';
+      div.style.lineHeight = '1.9';
+      div.textContent = l.text;
+      out.appendChild(div);
+    }, lineDelay);
+    lineDelay += 200;
+  });
+
+  setTimeout(async () => {
+    if (DEMO_WEBHOOK_URL === 'REPLACE_WITH_WEBHOOK_URL') {
+      // Fallback: offline demo response
+      showOfflineDemo(out, name, type, challenge, btn);
+      return;
+    }
+
+    try {
+      const res = await fetch(DEMO_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, business_type: type, challenge, mode: 'demo' })
+      });
+      const data = await res.json();
+      const response = data.response || data.output || data.message || JSON.stringify(data);
+
+      const label = document.createElement('div');
+      label.style.cssText = 'color:var(--green);font-family:JetBrains Mono,monospace;font-size:0.78rem;line-height:1.9;margin-top:4px;';
+      label.textContent = '⚡ NUB Analysis:';
+      out.appendChild(label);
+      out.appendChild(document.createElement('br'));
+
+      const responseEl = document.createElement('div');
+      responseEl.style.cssText = 'font-family:JetBrains Mono,monospace;font-size:0.78rem;line-height:1.9;white-space:pre-wrap;';
+      out.appendChild(responseEl);
+
+      typewriterAppend(responseEl, response, 18, () => {
+        setDemoStatus('live', 'nub — response complete');
+        btn.disabled = false;
+        btn.textContent = 'Run Another Analysis →';
+      });
+
+    } catch (err) {
+      showOfflineDemo(out, name, type, challenge, btn);
+    }
+  }, lineDelay + 300);
+}
+
+function showOfflineDemo(out, name, type, challenge, btn) {
+  // Smart canned responses when webhook isn't configured
+  const responses = {
+    'Retail / E-Commerce': `Here's what I'd prioritize for your retail operation:\n\n1. Abandoned cart recovery sequence — most stores leave 15-30% of revenue on the floor here. A 3-email automation recovers a significant chunk.\n\n2. Post-purchase follow-up at Day 3 and Day 14. Repeat buyers are 5x cheaper to convert than new ones.\n\n3. Your challenge "${challenge.substring(0,40)}..." — this is solvable with an n8n workflow connected to your store platform. I'd have it running in under 2 hours.\n\nBottom line: you're probably leaving $800-2,000/mo on the table with manual follow-up alone.`,
+    'Restaurant / Food Service': `For your restaurant, the highest-leverage moves:\n\n1. Review response automation — Google reviews unanswered past 48hrs kill your ranking. Auto-respond with personalized templates.\n\n2. Reservation/no-show follow-up — an automated SMS sequence cuts no-shows by ~30%.\n\n3. Re-engagement for lapsed customers — anyone who hasn't visited in 45 days gets a targeted offer. Zero manual work.\n\nYour challenge: "${challenge.substring(0,50)}..." — I'd route this through a Telegram bot so you're notified instantly, with auto-triage built in.`,
+    'default': `Based on what you've shared:\n\nYour challenge — "${challenge.substring(0,60)}..." — breaks down into two components: the repetitive execution (which AI handles) and the judgment calls (which stay with you).\n\nHighest-priority move: build a triage system. Every task that comes in gets categorized automatically — urgent/actionable/informational. That alone eliminates the cognitive load of deciding what matters.\n\nFor ${type || 'your business'}, the fastest win is usually automating your outbound follow-up sequence. Most businesses I analyze are following up manually 2-3x less than they should. An automated 5-touch sequence running in the background changes that overnight.\n\nWant to go deeper? Hit the contact link below.`
+  };
+
+  const response = responses[type] || responses['default'];
+
+  const label = document.createElement('div');
+  label.style.cssText = 'color:var(--orange);font-family:JetBrains Mono,monospace;font-size:0.78rem;line-height:1.9;';
+  label.textContent = '⚠ Demo mode (webhook offline) — showing pre-analyzed response:';
+  out.appendChild(label);
+  out.appendChild(document.createElement('br'));
+
+  const responseEl = document.createElement('div');
+  responseEl.style.cssText = 'font-family:JetBrains Mono,monospace;font-size:0.78rem;line-height:1.9;white-space:pre-wrap;color:var(--text);';
+  out.appendChild(responseEl);
+
+  typewriterAppend(responseEl, response, 14, () => {
+    setDemoStatus('idle', 'nub — demo mode');
+    btn.disabled = false;
+    btn.textContent = 'Run Another Analysis →';
+  });
 }
 </script>
 
