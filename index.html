@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NSAI — Your Personal AI Operating System</title>
+<meta name="description" content="NSAI runs your business 24/7 — answering messages, monitoring markets, executing tasks. Always on. Always working.">
+<meta property="og:title" content="NSAI — Your Personal AI Operating System">
+<meta property="og:description" content="Stop doing everything yourself. NSAI automates your operations around the clock.">
+<meta property="og:url" content="https://nsai.tech">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Google Analytics — add your GA4 ID below -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
 <style>
 :root {
   --bg: #0a0a0b;
@@ -649,14 +655,53 @@ footer {
 <section class="final-cta" id="contact">
   <div class="container">
     <h2>Ready to stop doing<br><span class="gradient">everything yourself?</span></h2>
-    <p>Book a free 30-minute consultation. We'll show you exactly what NSAI can automate for your specific workflow.</p>
-    <a href="tel:+13526987333" class="btn-primary" style="display:inline-block;">Call or Text: (352) 698-7333</a>
+    <p>Book a free 30-minute strategy call. We'll map out exactly what NSAI can automate for your workflow — no fluff, no sales pitch.</p>
+
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:32px 0 40px;">
+      <a href="https://calendly.com/nsai-tech/30min" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+        📅 Book a Free Call
+      </a>
+      <a href="sms:+13526987333" class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px;">
+        💬 Text: (352) 698-7333
+      </a>
+      <a href="/demo/" class="btn-secondary" style="display:inline-flex;align-items:center;gap:8px;">
+        ▶ Live Demo
+      </a>
+    </div>
+
+    <div style="max-width:480px;margin:0 auto;">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:20px;">Or drop your info — we'll reach out within 24 hours.</p>
+      <form action="https://formspree.io/f/contact-nsai" method="POST" style="display:flex;flex-direction:column;gap:12px;" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="_replyto" value="nub@nsai.tech">
+        <input type="hidden" name="_subject" value="New NSAI Consultation Request">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <input type="text" name="name" placeholder="Your name" required
+            style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
+          <input type="text" name="business" placeholder="Business type"
+            style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
+        </div>
+        <input type="email" name="email" placeholder="Email address" required
+          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
+        <input type="tel" name="phone" placeholder="Phone (optional)"
+          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
+        <textarea name="message" placeholder="What's eating your time? (optional)" rows="3"
+          style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;resize:vertical;"></textarea>
+        <button type="submit" id="submitBtn"
+          style="background:var(--gradient);border:none;border-radius:8px;padding:14px;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;letter-spacing:0.02em;">
+          Send Message →
+        </button>
+        <p id="formMsg" style="display:none;font-size:0.85rem;color:var(--accent3);text-align:center;"></p>
+      </form>
+      <p style="margin-top:16px;font-size:0.8rem;color:var(--text-muted);">
+        Or email directly: <a href="mailto:nub@nsai.tech" style="color:var(--accent);">nub@nsai.tech</a>
+      </p>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <p>© 2026 Not So Holdings LLC. All rights reserved.</p>
+    <p>© 2026 Not So Holdings LLC &nbsp;·&nbsp; <a href="https://nsai.tech" style="color:var(--text-muted);text-decoration:none;">nsai.tech</a> &nbsp;·&nbsp; <a href="mailto:nub@nsai.tech" style="color:var(--text-muted);text-decoration:none;">nub@nsai.tech</a> &nbsp;·&nbsp; (352) 698-7333</p>
   </div>
 </footer>
 
@@ -669,6 +714,27 @@ document.querySelectorAll('.faq-q').forEach(q => {
     item.classList.toggle('open');
   });
 });
+
+// Contact form
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  try {
+    const res = await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { Accept: 'application/json' } });
+    if (res.ok) {
+      msg.textContent = '✓ Got it — we\'ll be in touch within 24 hours.'; msg.style.display = 'block';
+      e.target.reset(); btn.textContent = 'Sent ✓';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    msg.textContent = 'Something went wrong. Email us directly at nub@nsai.tech';
+    msg.style.color = '#f87171'; msg.style.display = 'block';
+    btn.textContent = 'Send Message →'; btn.disabled = false;
+  }
+}
 </script>
 
 </body>

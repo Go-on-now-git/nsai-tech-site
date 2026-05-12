@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSAI — AI Operating System for Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── Print-optimized. Dark-on-white. ─── */
+:root {
+  --black: #0a0a0b;
+  --dark: #1a1a1e;
+  --gray: #52525b;
+  --gray-light: #a1a1aa;
+  --border: #e4e4e7;
+  --bg-light: #f8f8f9;
+  --accent: #ea6c0a;
+  --accent-light: #fff4ed;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --white: #ffffff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.5;
+  font-size: 10pt;
+  max-width: 816px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ─── Header / Hero ─── */
+.header {
+  background: var(--black);
+  color: var(--white);
+  padding: 36px 48px 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+.header-left { flex: 1; }
+.logo-mark {
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.logo-mark span {
+  background: linear-gradient(135deg, #f97316, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tagline {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #a1a1aa;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.header-desc {
+  font-size: 0.85rem;
+  color: #71717a;
+  max-width: 400px;
+  line-height: 1.6;
+}
+.header-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+.company-name { font-size: 0.8rem; color: #71717a; margin-bottom: 4px; }
+.company-phone {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.company-web { font-size: 0.8rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+
+/* ─── Main content ─── */
+.body-wrap { padding: 36px 48px; }
+
+/* ─── Problem / Solution ─── */
+.ps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+.ps-box {
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+.ps-box.problem {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.ps-box.solution {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+.ps-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.ps-box.problem .ps-label { color: #dc2626; }
+.ps-box.solution .ps-label { color: var(--green); }
+.ps-box ul { list-style: none; }
+.ps-box li {
+  font-size: 0.85rem;
+  color: var(--dark);
+  padding: 4px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+.ps-box.problem li::before { content: '✗'; color: #dc2626; font-weight: 700; }
+.ps-box.solution li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+/* ─── Section headers ─── */
+.section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+/* ─── Capabilities Grid ─── */
+.cap-section { margin-bottom: 36px; }
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.cap-item {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.cap-icon { font-size: 1.2rem; margin-bottom: 6px; display: block; }
+.cap-item h3 { font-size: 0.8rem; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.cap-item p { font-size: 0.75rem; color: var(--gray); line-height: 1.5; }
+
+/* ─── Pricing Table ─── */
+.pricing-section { margin-bottom: 36px; }
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.pricing-table th {
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: left;
+}
+.pricing-table th.featured { background: var(--accent); color: var(--white); }
+.pricing-table td {
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  color: var(--dark);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.pricing-table tr:last-child td { border-bottom: none; }
+.pricing-table tr:nth-child(even) td { background: var(--bg-light); }
+.plan-name { font-weight: 700; color: var(--black); }
+.plan-price { font-weight: 800; color: var(--accent); font-size: 0.9rem; }
+.check { color: var(--green); font-weight: 700; }
+.dash { color: var(--gray-light); }
+
+/* ─── Social Proof / Quote ─── */
+.quote-bar {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 36px;
+}
+.quote-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.5;
+  font-style: italic;
+}
+.quote-source { font-size: 0.75rem; color: var(--gray); }
+
+/* ─── How It Works ─── */
+.steps-section { margin-bottom: 36px; }
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.step-num {
+  width: 24px; height: 24px;
+  background: var(--black); color: var(--white);
+  border-radius: 6px;
+  font-size: 0.75rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-item h4 { font-size: 0.8rem; font-weight: 700; color: var(--black); }
+.step-item p { font-size: 0.75rem; color: var(--gray); line-height: 1.5; }
+
+/* ─── Footer ─── */
+.doc-footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-left { font-size: 0.75rem; color: #71717a; }
+.footer-left strong { color: var(--white); }
+.footer-cta {
+  text-align: right;
+}
+.footer-cta .cta-label { font-size: 0.7rem; color: #71717a; margin-bottom: 2px; }
+.footer-cta .cta-phone { font-size: 1rem; font-weight: 800; color: var(--white); }
+.footer-cta .cta-action {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #f97316, #f59e0b);
+  color: #000; font-weight: 700; font-size: 0.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* ─── Print ─── */
+@media print {
+  body { max-width: 100%; padding: 0; }
+  @page { margin: 0; size: letter; }
+  .no-print { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo-mark">⚡ <span>NSAI</span></div>
+    <div class="tagline">AI Operating System for Your Business</div>
+    <div class="header-desc">
+      NSAI is your autonomous AI operator — always on, always working. It researches, monitors, 
+      automates, and executes tasks across your business so you can focus on what actually moves the needle.
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="company-name">Not So Holdings LLC</div>
+    <div class="company-phone">(352) 698-7333</div>
+    <div class="company-web">nsai.tech</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- Problem / Solution -->
+  <div class="ps-grid">
+    <div class="ps-box problem">
+      <div class="ps-label">The Problem</div>
+      <ul>
+        <li>You spend hours on tasks an AI could handle in seconds</li>
+        <li>Inbox, research, reports — all manual, all time-consuming</li>
+        <li>Generic AI tools don't know your business or connect to your workflow</li>
+        <li>You're paying for SaaS tools that overlap and still require manual work</li>
+        <li>Real leverage requires infrastructure, not just a chatbot</li>
+      </ul>
+    </div>
+    <div class="ps-box solution">
+      <div class="ps-label">The NSAI Solution</div>
+      <ul>
+        <li>A dedicated AI operator, customized to your exact workflow</li>
+        <li>Runs 24/7 on your device or our infrastructure — always available</li>
+        <li>Connects to your real tools: email, calendar, CRMs, APIs, browser</li>
+        <li>Learns your preferences, builds context over time — gets smarter</li>
+        <li>Talk to it on Telegram, WhatsApp, Discord — wherever you already are</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Capabilities -->
+  <div class="cap-section">
+    <div class="section-label">What NSAI Does</div>
+    <div class="cap-grid">
+      <div class="cap-item">
+        <span class="cap-icon">🔍</span>
+        <h3>Deep Research</h3>
+        <p>Market intel, competitive analysis, due diligence. Results delivered, not links.</p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">⚙️</span>
+        <h3>Workflow Automation</h3>
+        <p>Build and run n8n automation pipelines. Triggers, conditions, actions — all automated.</p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">📊</span>
+        <h3>Proactive Monitoring</h3>
+        <p>Watches markets, inbox, leads, and news. Alerts on what matters. Handles the rest.</p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">🌐</span>
+        <h3>Browser Automation</h3>
+        <p>Full web control. Fill forms, extract data, navigate complex sites automatically.</p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">💬</span>
+        <h3>Multi-Channel</h3>
+        <p>Telegram, WhatsApp, Discord, Signal, Slack. One AI, all your channels.</p>
+      </div>
+      <div class="cap-item">
+        <span class="cap-icon">🧠</span>
+        <h3>Persistent Memory</h3>
+        <p>Remembers every decision, preference, and project. Gets smarter over time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-bar">
+    <div class="quote-text">"I used to spend 2 hours every morning on market research and inbox triage. NSAI handles all of it before I'm even awake. I show up to work and just make decisions."</div>
+    <div class="quote-source">— Trader, NSAI Operator plan</div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="steps-section">
+    <div class="section-label">How It Works</div>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <h4>Free Consultation</h4>
+        <p>30-minute call. We learn your workflow and map out exactly what to automate. No jargon, no commitments.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <h4>Custom Build</h4>
+        <p>We configure your NSAI instance — personality, tool connections, workflows — tailored to your business.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <h4>Go Live in 48 Hours</h4>
+        <p>Deployed on your device or our infrastructure. First week includes hands-on onboarding and optimization.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="pricing-section">
+    <div class="section-label">Pricing</div>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Price</th>
+          <th class="featured">Operator — Most Popular</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td><span class="plan-name">Starter</span><br><span class="plan-price">$297/mo</span></td>
+          <td><span class="plan-name">Operator</span><br><span class="plan-price">$597/mo</span></td>
+          <td><span class="plan-name">Enterprise</span><br><span class="plan-price">Custom</span></td>
+        </tr>
+        <tr>
+          <td>Messaging Channels</td>
+          <td>1 channel</td>
+          <td><span class="check">✓</span> All channels</td>
+          <td><span class="check">✓</span> All + custom</td>
+        </tr>
+        <tr>
+          <td>Research & Monitoring</td>
+          <td><span class="check">✓</span> Core</td>
+          <td><span class="check">✓</span> Full + proactive alerts</td>
+          <td><span class="check">✓</span> Unlimited</td>
+        </tr>
+        <tr>
+          <td>n8n Workflows</td>
+          <td>5 workflows</td>
+          <td><span class="check">✓</span> Unlimited</td>
+          <td><span class="check">✓</span> Unlimited + custom</td>
+        </tr>
+        <tr>
+          <td>Browser Automation</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="check">✓</span> Full Chromium</td>
+          <td><span class="check">✓</span> Full + dedicated</td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Email</td>
+          <td><span class="check">✓</span> Priority + weekly calls</td>
+          <td><span class="check">✓</span> Dedicated SLA</td>
+        </tr>
+        <tr>
+          <td>Multiple Instances</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="dash">—</span></td>
+          <td><span class="check">✓</span> Teams / orgs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div class="footer-left">
+    <strong>Not So Holdings LLC</strong><br>
+    Florida LLC · nsai.tech · Confidential — prepared for your review
+  </div>
+  <div class="footer-cta">
+    <div class="cta-label">Ready to see it live?</div>
+    <div class="cta-phone">(352) 698-7333</div>
+    <a href="tel:+13526987333" class="cta-action">Call or Text to Book a Demo</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSAI Live Demo — See It Work For You</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b; --bg-card: #111113; --bg-card-hover: #18181b;
+  --border: #27272a; --text: #fafafa; --text-dim: #a1a1aa; --text-muted: #71717a;
+  --accent: #f97316; --accent-glow: rgba(249,115,22,0.15);
+  --accent2: #3b82f6; --accent3: #10b981;
+  --gradient: linear-gradient(135deg, #f97316, #fb923c, #f59e0b);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+nav {
+  padding: 16px 32px; background: rgba(10,10,11,0.9);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-weight: 800; font-size: 1.1rem; }
+.logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.back { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+.back:hover { color: var(--text); }
+
+.hero { text-align: center; padding: 60px 24px 40px; }
+.hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 12px; }
+.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text-dim); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+.demo-container { max-width: 800px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* Input Form */
+.input-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.input-card h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); }
+select, input[type=text] {
+  background: #18181b; border: 1px solid var(--border);
+  color: var(--text); padding: 12px 14px; border-radius: 10px;
+  font-size: 0.9rem; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+select:focus, input[type=text]:focus { border-color: var(--accent); }
+select option { background: #18181b; }
+.run-btn {
+  width: 100%; padding: 14px; border-radius: 12px;
+  background: var(--gradient); color: #000;
+  font-weight: 700; font-size: 1rem; font-family: 'Inter', sans-serif;
+  border: none; cursor: pointer; margin-top: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.run-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px var(--accent-glow); }
+.run-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Terminal */
+.terminal { display: none; }
+.terminal.visible { display: block; }
+.terminal-wrap {
+  border-radius: 16px; border: 1px solid var(--border);
+  background: var(--bg-card); overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.terminal-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; background: #18181b;
+  border-bottom: 1px solid var(--border);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #ef4444; } .dot.y { background: #eab308; } .dot.g { background: #22c55e; }
+.terminal-title { flex:1; text-align:center; font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
+.terminal-body { padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.9; min-height: 300px; }
+.line { display: block; }
+.line.hidden { display: none; }
+.prompt { color: var(--accent); }
+.cmd { color: var(--text); }
+.output { color: var(--text-dim); }
+.success { color: var(--accent3); }
+.info { color: var(--accent2); }
+.warning { color: #f59e0b; }
+.cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); animation: blink 1s infinite; vertical-align: middle; }
+@keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+
+.cta-after {
+  margin-top: 20px; padding: 20px 24px;
+  background: var(--bg-card); border: 1px solid var(--accent);
+  border-radius: 12px; text-align: center;
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+.cta-after p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 14px; }
+.cta-after a {
+  display: inline-block; background: var(--gradient); color: #000;
+  font-weight: 700; padding: 12px 28px; border-radius: 10px;
+  text-decoration: none; font-size: 0.95rem;
+}
+
+@media(max-width:600px) { .form-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚡ <span>NSAI</span></div>
+  <a href="../" class="back">← Back to main site</a>
+</nav>
+
+<div class="hero">
+  <h1>See NSAI work <span>for you</span></h1>
+  <p>Tell us your role and your biggest pain point. We'll show you exactly how NSAI handles it.</p>
+</div>
+
+<div class="demo-container">
+  <div class="input-card">
+    <h2>⚡ Run your personalized demo</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Role</label>
+        <select id="role">
+          <option value="">Select your role...</option>
+          <option value="trader">Crypto / Stock Trader</option>
+          <option value="founder">Startup Founder</option>
+          <option value="realtor">Real Estate Agent</option>
+          <option value="freelancer">Freelancer / Creator</option>
+          <option value="smallbiz">Small Business Owner</option>
+          <option value="consultant">Consultant / Agency</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Biggest Time-Waster</label>
+        <select id="task">
+          <option value="">Select a pain point...</option>
+          <option value="research">Market research & analysis</option>
+          <option value="inbox">Email & message triage</option>
+          <option value="scheduling">Scheduling & calendar</option>
+          <option value="monitoring">Monitoring prices / news</option>
+          <option value="reporting">Reports & summaries</option>
+          <option value="followup">Client follow-ups</option>
+          <option value="automation">Repetitive manual tasks</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:16px;">
+      <label>Your Name (optional)</label>
+      <input type="text" id="name" placeholder="e.g. Alex">
+    </div>
+    <button class="run-btn" id="runBtn" onclick="runDemo()">▶ Run My Demo</button>
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <div class="terminal-title" id="termTitle">nsai — live session</div>
+      </div>
+      <div class="terminal-body" id="termBody"></div>
+    </div>
+    <div class="cta-after" id="ctaAfter" style="display:none;">
+      <p>Ready to have NSAI doing this for you every day, automatically?</p>
+      <a href="tel:+13526987333">Text or Call: (352) 698-7333</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEMOS = {
+  trader: {
+    research: [
+      ['prompt','What should I know before the market opens today?'],
+      ['output','Scanning markets, news feeds, and overnight futures...'],
+      ['success','✓ Pre-market brief ready — here\'s what matters:'],
+      ['info','→ BTC up 3.2% overnight on ETF inflow news ($840M)'],
+      ['info','→ SPY futures +0.4% — Fed speaker at 9:30 AM ET today'],
+      ['info','→ NVDA earnings beat by 12% — gap up expected at open'],
+      ['info','→ Your watchlist: SOL +5.1%, ETH +2.8%, AAPL flat'],
+      ['output','3 setups flagged with entry/exit zones. Check your alerts.'],
+      ['prompt','Perfect. Any risk to watch?'],
+      ['output','CPI data drops Thursday. Options vol elevated. Hedge accordingly.'],
+    ],
+    monitoring: [
+      ['prompt','Alert me if BTC drops below $61k or breaks above $68k'],
+      ['success','✓ Price alerts set. Monitoring 24/7.'],
+      ['output','I\'ll also watch ETH, SOL, and your top 5 copy-trade signals.'],
+      ['info','Current BTC: $64,280 — within range, no action needed.'],
+      ['output','I\'ll ping you on Telegram the moment either level hits.'],
+      ['prompt','Also watch for any SEC news on crypto ETFs'],
+      ['success','✓ SEC keyword alert added. Monitoring Reuters, Bloomberg, CoinDesk.'],
+      ['output','I\'ll summarize any relevant news within 60 seconds of publication.'],
+    ],
+    reporting: [
+      ['prompt','Give me my P&L summary for this week'],
+      ['output','Pulling trade history and calculating...'],
+      ['success','✓ Week ending March 17:'],
+      ['info','→ Total trades: 23 | Win rate: 69.6%'],
+      ['info','→ Gross P&L: +$4,820 | Fees: -$340 | Net: +$4,480'],
+      ['info','→ Best trade: SOL long +$1,200 | Worst: DOGE short -$380'],
+      ['output','Full breakdown with chart sent to your Telegram. Want me to export to CSV?'],
+    ],
+  },
+  founder: {
+    research: [
+      ['prompt','Who are the top 5 competitors to our SaaS product?'],
+      ['output','Running competitive analysis across Product Hunt, G2, Crunchbase...'],
+      ['success','✓ Found 8 direct competitors. Top 5 by traction:'],
+      ['info','→ CompetitorA — $12M ARR, 4.2★, weak on mobile'],
+      ['info','→ CompetitorB — $3M raised, no enterprise tier yet'],
+      ['info','→ CompetitorC — market leader but expensive ($800+/mo)'],
+      ['info','→ CompetitorD — strong UI, poor integrations (opportunity)'],
+      ['info','→ CompetitorE — new entrant, VC-backed, growing fast'],
+      ['output','Full report with pricing, feature gaps, and positioning angles ready.'],
+      ['prompt','What\'s our best differentiation angle?'],
+      ['output','Based on review gaps: CompetitorA users complain about onboarding (487 reviews mention it). That\'s your wedge.'],
+    ],
+    inbox: [
+      ['prompt','What\'s urgent in my inbox right now?'],
+      ['output','Scanning 34 unread emails...'],
+      ['success','✓ 3 require action today:'],
+      ['info','→ Investor (Sequoia): Asking for updated deck — deadline tomorrow'],
+      ['info','→ Enterprise lead (Acme Corp): Ready to sign, needs contract'],
+      ['info','→ Team: Engineer requesting decision on infra migration'],
+      ['output','18 are FYI, 13 filtered to archive. Drafts ready for the 3 action items.'],
+      ['prompt','Send the contract to Acme'],
+      ['success','✓ Contract sent to legal@acmecorp.com with DocuSign link.'],
+    ],
+    automation: [
+      ['prompt','Automate our weekly investor update email'],
+      ['output','Setting up workflow: every Monday 8AM → pull metrics from Stripe + Mixpanel → generate update draft → send to you for approval → forward to investor list.'],
+      ['success','✓ Workflow active. First run: Monday 8:00 AM ET.'],
+      ['info','→ Metrics pulled: MRR, churn, new signups, DAU'],
+      ['output','You\'ll get a draft in Telegram every Sunday night to approve or edit before it sends.'],
+    ],
+  },
+  realtor: {
+    research: [
+      ['prompt','What\'s the market like in Sarasota right now?'],
+      ['output','Pulling MLS trends, days-on-market, price/sqft data...'],
+      ['success','✓ Sarasota Market Snapshot (March 2026):'],
+      ['info','→ Median price: $485,000 (+6.2% YoY)'],
+      ['info','→ Avg days on market: 38 (down from 52 last quarter)'],
+      ['info','→ Inventory: 2.1 months (seller\'s market)'],
+      ['info','→ Cash buyers: 41% of transactions'],
+      ['output','3 zip codes showing above-average appreciation flagged for prospecting.'],
+    ],
+    followup: [
+      ['prompt','Who needs a follow-up call today?'],
+      ['output','Checking CRM and contact history...'],
+      ['success','✓ 4 contacts due for follow-up:'],
+      ['info','→ Mike & Sarah T. — viewed 3 homes last week, no offer yet'],
+      ['info','→ David R. — pre-approved buyer, 14 days since last contact'],
+      ['info','→ The Garcias — listing expires in 8 days, check in'],
+      ['info','→ New lead from Zillow — 3 hours old, no response yet'],
+      ['output','Scripts drafted for each. Want me to send text messages to the cold leads?'],
+    ],
+    scheduling: [
+      ['prompt','Schedule showings for the Martinez family — Saturday works'],
+      ['output','Checking availability for 3 properties on their shortlist...'],
+      ['success','✓ All 3 agents confirmed for Saturday:'],
+      ['info','→ 10:00 AM — 4BR on Osprey Ave'],
+      ['info','→ 11:30 AM — 3BR on Bahia Vista'],
+      ['info','→ 1:00 PM — 4BR on Webber St'],
+      ['output','Confirmation texts sent to Martinez family and all 3 listing agents. Calendar updated.'],
+    ],
+  },
+  freelancer: {
+    inbox: [
+      ['prompt','Any new leads or client messages I need to see?'],
+      ['output','Scanning inbox and DMs...'],
+      ['success','✓ 2 new opportunities:'],
+      ['info','→ Inbound from TechStartup.io — wants branding project, budget $8k'],
+      ['info','→ Past client (RetailBrand) — repeat project, Q2 campaign'],
+      ['output','5 routine messages handled. Draft replies ready for both leads.'],
+      ['prompt','Accept the TechStartup project and send a contract'],
+      ['success','✓ Welcome email sent, contract generated and delivered via DocuSign.'],
+    ],
+    reporting: [
+      ['prompt','How much have I invoiced this month?'],
+      ['output','Pulling invoice data...'],
+      ['success','✓ March 2026 summary:'],
+      ['info','→ Invoiced: $14,200 | Collected: $9,800 | Outstanding: $4,400'],
+      ['info','→ Overdue: BrandCo invoice ($2,200) — 12 days past due'],
+      ['output','Reminder sent to BrandCo. Want me to escalate if no response in 48 hours?'],
+    ],
+    automation: [
+      ['prompt','Remind clients automatically when invoices are 7 days from due'],
+      ['output','Setting up invoice reminder workflow...'],
+      ['success','✓ Active: Auto-reminder 7 days before due, day-of, and 3 days after if unpaid.'],
+      ['output','Estimated time saved: ~45 min/week of manual follow-up.'],
+    ],
+  },
+  smallbiz: {
+    inbox: [
+      ['prompt','What came in overnight that needs my attention?'],
+      ['output','Scanning email, Google My Business, and Yelp messages...'],
+      ['success','✓ 3 action items this morning:'],
+      ['info','→ New catering inquiry — event for 80 people, April 5th'],
+      ['info','→ Yelp review (1 star) — needs a response today'],
+      ['info','→ Supplier: price increase notice effective April 1'],
+      ['output','Drafted a reply to the catering inquiry and a professional Yelp response. Ready to send?'],
+      ['prompt','Yes, send both.'],
+      ['success','✓ Catering reply sent. Yelp response posted.'],
+    ],
+    monitoring: [
+      ['prompt','Keep an eye on my competitors\' pricing'],
+      ['output','Monitoring competitor menus and price pages weekly...'],
+      ['success','✓ Alerts set for: Main Street Deli, Corner Cafe, Bistro Rosso'],
+      ['info','→ Last check: Corner Cafe raised sandwich prices 8% last Tuesday'],
+      ['output','I\'ll alert you when any competitor changes prices by more than 5%.'],
+    ],
+    followup: [
+      ['prompt','Which customers haven\'t been back in over 60 days?'],
+      ['output','Querying customer database...'],
+      ['success','✓ 47 lapsed customers identified'],
+      ['info','→ Top segment: lunch regulars who stopped in January'],
+      ['output','Win-back campaign drafted: personalized "we miss you" text + 10% off offer. Want to send to all 47?'],
+    ],
+  },
+  consultant: {
+    reporting: [
+      ['prompt','Build me a client report for the Henderson account'],
+      ['output','Pulling project data, KPIs, and deliverables from last 30 days...'],
+      ['success','✓ Report draft ready:'],
+      ['info','→ 4 deliverables completed on time'],
+      ['info','→ KPI: Lead gen up 34% vs. baseline'],
+      ['info','→ KPI: Cost per acquisition down 18%'],
+      ['info','→ Next 30 days: Phase 2 launch, paid media scaling'],
+      ['output','Executive summary written. 6-page PDF formatted and ready to send. Want to review first?'],
+    ],
+    research: [
+      ['prompt','I have a discovery call with a logistics company tomorrow. What should I know?'],
+      ['output','Researching logistics industry trends, pain points, and digital maturity...'],
+      ['success','✓ Discovery prep brief ready:'],
+      ['info','→ Top pain: last-mile delivery costs up 23% since 2023'],
+      ['info','→ Trend: 67% of mid-size logistics firms lack real-time tracking'],
+      ['info','→ Budget cycles: typically Q1 and Q3 for tech spend'],
+      ['info','→ Key questions to ask: fleet size, current TMS, biggest ops bottleneck'],
+      ['output','5 tailored discovery questions and a positioning angle prepped.'],
+    ],
+    automation: [
+      ['prompt','Automate my Monday morning client status roundup'],
+      ['output','Building workflow: every Monday 7AM → pull status from Asana → summarize per client → send to you via Telegram...'],
+      ['success','✓ Workflow live. First run: Monday 7:00 AM.'],
+      ['output','You\'ll have a full client status brief before your first call of the week. Every week. Automatically.'],
+    ],
+  },
+};
+
+const DEFAULTS = {
+  research: [
+    ['prompt','I need deep research on this topic for a meeting tomorrow'],
+    ['output','On it. Searching across 40+ sources...'],
+    ['success','✓ Research complete in 90 seconds'],
+    ['info','→ Key findings, data points, and sources compiled'],
+    ['info','→ Executive summary: 3 paragraphs'],
+    ['info','→ Full report: 8 sections with citations'],
+    ['output','Delivered to your Telegram. Ready to discuss or export.'],
+  ],
+  inbox: [
+    ['prompt','Clear my inbox, flag what matters'],
+    ['output','Processing messages...'],
+    ['success','✓ Done. 3 urgent, 5 FYI, rest archived'],
+    ['output','Draft replies ready for the urgent ones. Approve with one tap.'],
+  ],
+};
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function typeLines(lines) {
+  const body = document.getElementById('termBody');
+  body.innerHTML = '';
+  for (let i = 0; i < lines.length; i++) {
+    const [type, text] = lines[i];
+    const span = document.createElement('span');
+    span.className = 'line';
+    if (type === 'prompt') {
+      span.innerHTML = `<span class="prompt">nsai › </span><span class="cmd">${text}</span>`;
+    } else {
+      span.innerHTML = `<span class="${type}">${text}</span>`;
+    }
+    body.appendChild(span);
+    body.appendChild(document.createTextNode('\n'));
+    await sleep(type === 'prompt' ? 600 : 350);
+    body.scrollTop = body.scrollHeight;
+  }
+  // Show cursor
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  body.appendChild(cur);
+  await sleep(800);
+  // Show CTA
+  document.getElementById('ctaAfter').style.display = 'block';
+}
+
+function runDemo() {
+  const role = document.getElementById('role').value;
+  const task = document.getElementById('task').value;
+  const name = document.getElementById('name').value.trim();
+
+  if (!role || !task) {
+    alert('Please select your role and a pain point to continue.');
+    return;
+  }
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Running demo...';
+
+  const termTitle = document.getElementById('termTitle');
+  termTitle.textContent = `nsai — session for ${name || 'you'}`;
+
+  document.getElementById('ctaAfter').style.display = 'none';
+
+  const lines = (DEMOS[role] && DEMOS[role][task])
+    ? DEMOS[role][task]
+    : (DEFAULTS[task] || DEFAULTS.research);
+
+  const terminal = document.getElementById('terminal');
+  terminal.className = 'terminal visible';
+  terminal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  typeLines(lines).then(() => {
+    btn.disabled = false;
+    btn.textContent = '▶ Run Another Demo';
+  });
+}
+</script>
+</body>
+</html>
