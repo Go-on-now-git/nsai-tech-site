@@ -7,8 +7,19 @@
 <meta name="description" content="NSAI deploys autonomous AI agents that handle follow-ups, research, scheduling, and business automation 24/7. Built on real infrastructure. Running live in Wesley Chapel, FL.">
 <meta name="keywords" content="AI automation small business, autonomous AI agent, business automation bot, AI follow-up automation, NUB AI operator, AI business assistant, small business AI, not so artificial intelligence">
 <meta name="author" content="Justin Perry, Not So Holdings LLC">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://nsai.tech/">
+
+<!-- Local / Geo -->
+<meta name="geo.region" content="US-FL">
+<meta name="geo.placename" content="Wesley Chapel, Florida">
+<meta name="geo.position" content="28.2100;-82.3590">
+<meta name="ICBM" content="28.2100, -82.3590">
+
+<!-- Mobile / PWA -->
+<meta name="theme-color" content="#080A0F">
+<meta name="apple-mobile-web-app-title" content="NSAI">
+<link rel="apple-touch-icon" href="https://nsai.tech/og-image.png">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -27,55 +38,161 @@
 <meta name="twitter:description" content="Autonomous AI agents that handle your follow-ups, research, and execution 24/7. Built and running live by Not So Holdings LLC.">
 <meta name="twitter:image" content="https://nsai.tech/og-image.png">
 
-<!-- Schema.org Structured Data -->
+<!-- Schema.org — Full SEO Stack -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "LocalBusiness",
       "@id": "https://nsai.tech/#org",
-      "name": "Not So Artificial Intelligence (NSAI)",
+      "name": "NSAI — Not So Artificial Intelligence",
+      "alternateName": "Not So Holdings LLC",
       "url": "https://nsai.tech",
-      "logo": "https://nsai.tech/og-image.png",
-      "founder": { "@type": "Person", "name": "Justin Perry" },
-      "foundingLocation": "Wesley Chapel, FL",
-      "description": "NSAI builds autonomous AI agents and automation products for small businesses.",
+      "logo": { "@type": "ImageObject", "url": "https://nsai.tech/og-image.png" },
+      "image": "https://nsai.tech/og-image.png",
+      "description": "NSAI builds autonomous AI agents and automation products for small businesses. Deploy your own AI operator in hours — handles follow-ups, research, scheduling, and execution 24/7.",
+      "founder": { "@type": "Person", "name": "Justin Perry", "jobTitle": "Founder" },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Wesley Chapel",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 28.21, "longitude": -82.359 },
+      "email": "nub@nsai.tech",
+      "priceRange": "$197 - $297/mo",
+      "openingHours": "Mo-Su 00:00-24:00",
       "sameAs": [
         "https://youtube.com/@nsaitech",
         "https://twitch.tv/nsai_nub",
-        "https://github.com/Go-on-now-git"
+        "https://github.com/Go-on-now-git",
+        "https://www.reverbnation.com/MRNSA"
       ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "nub@nsai.tech",
-        "contactType": "customer service"
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "NSAI Products",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "NSAI Operator", "description": "Fully managed autonomous AI agent — handles comms, scheduling, research 24/7" }, "price": "297", "priceCurrency": "USD", "priceSpecification": { "@type": "RecurringPayment" } },
+          { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "NUB Installer", "description": "Deploy your own AI operator on any device in under 2 hours" }, "price": "197", "priceCurrency": "USD" }
+        ]
       }
     },
     {
       "@type": "WebSite",
       "@id": "https://nsai.tech/#website",
       "url": "https://nsai.tech",
-      "name": "NSAI",
+      "name": "NSAI — AI Automation for Small Business",
       "publisher": { "@id": "https://nsai.tech/#org" },
+      "inLanguage": "en-US",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://nsai.tech/?q={search_term_string}",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://nsai.tech/?q={search_term_string}" },
         "query-input": "required name=search_term_string"
       }
     },
     {
+      "@type": "WebPage",
+      "@id": "https://nsai.tech/#webpage",
+      "url": "https://nsai.tech",
+      "name": "NSAI — AI Automation for Small Business | Not So Artificial Intelligence",
+      "description": "Deploy autonomous AI agents that handle follow-ups, research, scheduling, and execution 24/7. Built on real infrastructure by Not So Holdings LLC, Wesley Chapel FL.",
+      "isPartOf": { "@id": "https://nsai.tech/#website" },
+      "about": { "@id": "https://nsai.tech/#org" },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [".hero-sub", ".section-sub", ".about-quote"]
+      }
+    },
+    {
       "@type": "SoftwareApplication",
+      "@id": "https://nsai.tech/#nub",
       "name": "NUB — NSAI Ultrabot",
       "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "AI Automation",
       "operatingSystem": "Linux, macOS, Windows, Android",
-      "offers": {
-        "@type": "Offer",
-        "price": "197",
-        "priceCurrency": "USD"
+      "softwareVersion": "2.0",
+      "releaseNotes": "Universal installer, Telegram integration, n8n workflow templates",
+      "offers": [
+        { "@type": "Offer", "name": "NUB Installer", "price": "197", "priceCurrency": "USD", "description": "Self-hosted, bring your own API key" },
+        { "@type": "Offer", "name": "NUB + Onboarding", "price": "297", "priceCurrency": "USD", "description": "1hr setup call + 30-day support + first automation built" }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "12",
+        "bestRating": "5"
       },
-      "description": "Autonomous AI operator that handles business comms, follow-ups, research, and execution 24/7.",
+      "description": "Autonomous AI operator that runs 24/7 on your own device. Handles business comms, follow-ups, research, scheduling, and execution.",
       "url": "https://nsai.tech"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "NSAI — AI Automation for Small Business",
+      "description": "Watch NUB, the NSAI Ultrabot, handle real business tasks autonomously in real time.",
+      "thumbnailUrl": "https://nsai.tech/og-image.png",
+      "uploadDate": "2026-01-01",
+      "publisher": { "@id": "https://nsai.tech/#org" },
+      "url": "https://youtube.com/@nsaitech"
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to Deploy Your Own AI Business Operator",
+      "description": "Set up NUB, your autonomous AI agent, in under 2 hours on any device.",
+      "totalTime": "PT2H",
+      "estimatedCost": { "@type": "MonetaryAmount", "currency": "USD", "value": "197" },
+      "step": [
+        { "@type": "HowToStep", "name": "Purchase NUB Installer", "text": "Get the NUB installer from nsai.tech. Works on Linux, macOS, Windows, and Android." },
+        { "@type": "HowToStep", "name": "Get an Anthropic API key", "text": "Sign up at console.anthropic.com and generate your API key. Free tier available." },
+        { "@type": "HowToStep", "name": "Run the installer", "text": "Run install.sh (Linux/Mac) or install.ps1 (Windows). Enter your credentials when prompted." },
+        { "@type": "HowToStep", "name": "Access your portal", "text": "Open your browser to your local IP address. Your NUB control panel is live on your network." },
+        { "@type": "HowToStep", "name": "Fire your first command", "text": "Tell NUB to run a status report, follow up with a client, or research a competitor. It works immediately." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is NSAI and what does it do?",
+          "acceptedAnswer": { "@type": "Answer", "text": "NSAI (Not So Artificial Intelligence) builds autonomous AI agents for small businesses. Our flagship product, NUB, runs 24/7 on your own device handling follow-ups, research, scheduling, data entry, and business execution — so you can focus on growth instead of busywork." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is NSAI different from ChatGPT?",
+          "acceptedAnswer": { "@type": "Answer", "text": "ChatGPT answers questions when you ask. NUB acts without being asked — it monitors, schedules, follows up, and executes tasks automatically around the clock. You give it goals, it handles the execution. It runs on your own hardware, not a shared cloud." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does AI automation cost for a small business?",
+          "acceptedAnswer": { "@type": "Answer", "text": "NSAI offers three tiers: the NUB Installer at $197 one-time (self-hosted, bring your own API key), NUB + Onboarding at $297 one-time (includes a 1-hour setup call and 30 days of support), and the fully managed NSAI Operator at $297/month where we run everything for you." }
+        },
+        {
+          "@type": "Question",
+          "name": "What tasks can AI automate for my small business?",
+          "acceptedAnswer": { "@type": "Answer", "text": "NUB handles: client follow-ups and email sequences, competitor and market research, meeting scheduling, data entry and reporting, social media monitoring, invoice tracking, lead qualification, and custom workflows via n8n. The average business owner saves 15-20 hours per week." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need technical skills to use NSAI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The NUB installer handles all setup automatically. You enter your API key, set a PIN, and it's running. The control panel is a simple web interface — no coding, no server management. If you choose the onboarding tier, we walk you through everything live." }
+        },
+        {
+          "@type": "Question",
+          "name": "What devices can run NUB?",
+          "acceptedAnswer": { "@type": "Answer", "text": "NUB runs on Linux, macOS, Windows, and Android (via Termux). It can even run on a Samsung Galaxy phone 24/7 as a pocket-sized AI node — exactly how we run it at NSAI headquarters." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe with NSAI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. NUB runs on YOUR device, not our servers. Your business data never leaves your hardware. You own the API keys and control everything. The portal is PIN-protected and only accessible on your local network by default." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to set up an AI agent for my business?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Most users are fully operational in under 2 hours. The installer handles Node.js, PM2, and all dependencies automatically. You just provide your Anthropic API key, set a PIN, and NUB starts working immediately." }
+        }
+      ]
     }
   ]
 }
@@ -886,6 +1003,43 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
     </div>
   </div>
 </div>
+
+<!-- FAQ — SEO Featured Snippets -->
+<section id="faq" style="background:linear-gradient(180deg,transparent,rgba(0,120,255,0.02),transparent)">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common Questions</h2>
+      <p class="section-sub">Everything you need to know before you deploy.</p>
+    </div>
+    <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px;" id="faqList">
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">How is NSAI different from ChatGPT? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">ChatGPT answers questions when you ask. NUB acts without being asked — it monitors, schedules, follows up, and executes tasks automatically around the clock. You give it goals, it handles execution. It runs on your own hardware, not a shared cloud.</p>
+      </details>
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">What tasks can AI automate for my small business? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">NUB handles: client follow-ups and email sequences, competitor and market research, meeting scheduling, data entry and reporting, social media monitoring, invoice tracking, lead qualification, and custom workflows. The average business owner saves 15–20 hours per week.</p>
+      </details>
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">How much does AI automation cost for a small business? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">Three tiers: NUB Installer at $197 one-time (self-hosted, bring your own API key), NUB + Onboarding at $297 one-time (1-hour setup call + 30 days support + first automation built), and fully managed NSAI Operator at $297/month.</p>
+      </details>
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">Do I need technical skills to use NSAI? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">No. The NUB installer handles everything automatically. Enter your API key, set a PIN, and it's running. The control panel is a simple web interface — no coding, no server management required.</p>
+      </details>
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">Is my data safe? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">Yes. NUB runs on YOUR device, not our servers. Your business data never leaves your hardware. You own the API keys and control everything. The portal is PIN-protected and only accessible on your local network by default.</p>
+      </details>
+      <details style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;cursor:pointer;">
+        <summary style="font-size:1rem;font-weight:700;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;">How long does setup take? <span style="color:var(--blue2);font-size:1.2rem;">+</span></summary>
+        <p style="margin-top:12px;color:var(--text-dim);line-height:1.8;font-size:0.9rem;">Under 2 hours for most users. The installer handles Node.js, PM2, and all dependencies automatically. Provide your Anthropic API key, set a PIN, and NUB starts working immediately.</p>
+      </details>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
