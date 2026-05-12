@@ -936,8 +936,7 @@ function filterProds(cat, btn) {
 }
 
 // ── Live Demo ────────────────────────────────────────────────────────────────
-// Replace DEMO_WEBHOOK_URL with your n8n webhook URL once Cloudflare Tunnel is live
-const DEMO_WEBHOOK_URL = 'REPLACE_WITH_WEBHOOK_URL';
+const DEMO_WEBHOOK_URL = 'https://nsai-demo.jut0430.workers.dev';
 
 function setDemoStatus(state, label) {
   const s = document.getElementById('demoStatus');
@@ -1020,7 +1019,7 @@ async function runDemo() {
       const res = await fetch(DEMO_WEBHOOK_URL, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, business_type: type, challenge, mode: 'demo' })
+        body: JSON.stringify({ name, type, challenge })
       });
       const data = await res.json();
       const response = data.response || data.output || data.message || JSON.stringify(data);
