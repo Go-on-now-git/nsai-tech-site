@@ -671,9 +671,11 @@ footer {
 
     <div style="max-width:480px;margin:0 auto;">
       <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:20px;">Or drop your info — we'll reach out within 24 hours.</p>
-      <form action="https://formspree.io/f/contact-nsai" method="POST" style="display:flex;flex-direction:column;gap:12px;" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="_replyto" value="nub@nsai.tech">
-        <input type="hidden" name="_subject" value="New NSAI Consultation Request">
+      <form action="https://formsubmit.co/jutterfly717@gmail.com" method="POST" style="display:flex;flex-direction:column;gap:12px;" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="_subject" value="New NSAI Consultation Request — nsai.tech">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://nsai.tech/?submitted=1">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <input type="text" name="name" placeholder="Your name" required
             style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:0.9rem;outline:none;">
