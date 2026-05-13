@@ -197,6 +197,17 @@
   ]
 }
 </script>
+<!-- Google Analytics 4 — replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+<!-- Create property at analytics.google.com → Admin → Create Property → get Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+  // Track chat widget opens
+  window.nubTrack = (action, label) => gtag('event', action, { event_category: 'NUB Chat', event_label: label });
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1400,7 +1411,7 @@ const ROUTES = {
 function nubToggle() {
   nubOpen = !nubOpen;
   document.getElementById('nub-panel').classList.toggle('open', nubOpen);
-  if (nubOpen && nubHistory.length === 0) nubGreet();
+  if (nubOpen && nubHistory.length === 0) { nubGreet(); if(window.nubTrack) nubTrack('chat_open','widget'); }
   if (nubOpen) setTimeout(() => document.getElementById('nub-input').focus(), 100);
 }
 
@@ -1426,6 +1437,7 @@ function nubRoute_select(route) {
   const labels = { pricing:'Pricing & Plans', download:'I Already Bought', book:'Book My Setup Call', support:'Technical Help', general:'General Question' };
   nubAddMsg('user', `${ROUTES[route].emoji} ${labels[route]}`);
   nubHistory.push({ role: 'user', content: labels[route] });
+  if(window.nubTrack) nubTrack('route_selected', route);
 
   if (route === 'book') {
     nubAddMsg('bot', 'Book your 1-hour setup call here — pick a time that works for you:<br><br><a href="https://calendly.com/nsai-tech/30min" target="_blank">📅 Schedule on Calendly →</a><br><br>Once booked you\'ll get a confirmation email. Bring your device and your Anthropic API key and we\'ll have NUB running before the call ends.');
