@@ -6,7 +6,7 @@
 <title>NSAI — AI Automation for Small Business | Not So Artificial Intelligence</title>
 <meta name="description" content="NSAI deploys autonomous AI agents that handle follow-ups, research, scheduling, and business automation 24/7. Built on real infrastructure. Running live in Wesley Chapel, FL.">
 <meta name="keywords" content="AI automation small business, autonomous AI agent, business automation bot, AI follow-up automation, NUB AI operator, AI business assistant, small business AI, not so artificial intelligence">
-<meta name="author" content="Justin Perry, Not So Holdings LLC">
+<meta name="author" content="NSAI Team, Not So Holdings LLC">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://nsai.tech/">
 
@@ -956,12 +956,12 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
         <div style="font-size:1.6rem;margin-bottom:12px;">⚡</div>
         <div style="font-size:0.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);margin-bottom:10px;">Guided Setup</div>
         <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:8px;">NUB + Onboarding</h3>
-        <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:20px;line-height:1.6;">Everything in the installer plus a 1-hour live setup call with Justin. We get it running together and configure it for your specific business.</p>
+        <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:20px;line-height:1.6;">Everything in the installer plus a 1-hour live setup call with a dedicated NSAI specialist. We get it running together and configure it for your specific business.</p>
         <div style="font-size:2.4rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;">$297</div>
         <div style="font-size:0.73rem;color:var(--text-muted);margin-bottom:24px;">one-time · same as one month of managed service</div>
         <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;font-size:0.8rem;">
           <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">Everything in NUB Installer</span></div>
-          <div style="display:flex;gap:8px;"><span style="color:var(--blue2);">⚡</span><span style="color:var(--text-dim);">1-hour live setup call with Justin</span></div>
+          <div style="display:flex;gap:8px;"><span style="color:var(--blue2);">⚡</span><span style="color:var(--text-dim);">1-hour live setup call with an NSAI specialist</span></div>
           <div style="display:flex;gap:8px;"><span style="color:var(--blue2);">⚡</span><span style="color:var(--text-dim);">Custom configuration for your business</span></div>
           <div style="display:flex;gap:8px;"><span style="color:var(--blue2);">⚡</span><span style="color:var(--text-dim);">30 days of priority email support</span></div>
           <div style="display:flex;gap:8px;"><span style="color:var(--blue2);">⚡</span><span style="color:var(--text-dim);">First automation workflow built for you</span></div>
@@ -988,7 +988,7 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
           <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">24/7 monitoring + maintenance</span></div>
           <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">Monthly strategy sessions</span></div>
           <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">Custom automations built on request</span></div>
-          <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">Priority support — direct line to Justin</span></div>
+          <div style="display:flex;gap:8px;"><span style="color:var(--green);">✓</span><span style="color:var(--text-dim);">Priority support — dedicated NSAI team line</span></div>
         </div>
         <a href="mailto:nub@nsai.tech?subject=NSAI Operator — Managed Inquiry"
            style="background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--text);font-weight:600;font-size:0.88rem;padding:13px;border-radius:10px;text-decoration:none;display:block;text-align:center;transition:all .2s;"
@@ -1310,6 +1310,214 @@ function showOfflineDemo(out, name, type, challenge, btn) {
     btn.disabled = false;
     btn.textContent = 'Run Another Analysis →';
   });
+}
+</script>
+
+<!-- NUB LIVE CHAT WIDGET -->
+<style>
+#nub-widget{position:fixed;bottom:24px;right:24px;z-index:9999;font-family:'Inter',sans-serif;}
+#nub-toggle{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#0055CC,#0078FF,#00AAFF);border:none;border-radius:40px;padding:13px 20px 13px 16px;cursor:pointer;box-shadow:0 4px 24px rgba(0,120,255,0.45);transition:transform .2s,box-shadow .2s;color:#fff;}
+#nub-toggle:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,120,255,0.55);}
+#nub-toggle-dot{width:10px;height:10px;background:#4ade80;border-radius:50%;flex-shrink:0;animation:nubPulse 2s infinite;}
+#nub-toggle-label{font-size:0.88rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;}
+@keyframes nubPulse{0%,100%{opacity:1}50%{opacity:.5}}
+#nub-panel{position:fixed;bottom:90px;right:24px;width:370px;max-width:calc(100vw - 32px);background:#0E1018;border:1px solid rgba(0,120,255,0.2);border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.7),0 0 0 1px rgba(0,120,255,0.08);display:none;flex-direction:column;overflow:hidden;max-height:520px;}
+#nub-panel.open{display:flex;}
+#nub-head{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#080A0F;border-bottom:1px solid rgba(0,120,255,0.12);}
+#nub-head-dot{width:9px;height:9px;background:#4ade80;border-radius:50%;flex-shrink:0;animation:nubPulse 2s infinite;}
+#nub-head-name{font-weight:800;font-size:0.92rem;color:#F0F2F8;}
+#nub-head-sub{font-size:0.7rem;color:#4A4F62;margin-top:1px;}
+#nub-close{margin-left:auto;background:none;border:none;color:#4A4F62;cursor:pointer;font-size:1.1rem;line-height:1;padding:4px;transition:color .15s;}
+#nub-close:hover{color:#F0F2F8;}
+#nub-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+#nub-msgs::-webkit-scrollbar{width:4px;}
+#nub-msgs::-webkit-scrollbar-track{background:transparent;}
+#nub-msgs::-webkit-scrollbar-thumb{background:rgba(0,120,255,0.2);border-radius:4px;}
+.nub-msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:0.82rem;line-height:1.55;word-break:break-word;}
+.nub-msg.bot{background:#13161F;border:1px solid rgba(0,120,255,0.1);color:#F0F2F8;align-self:flex-start;border-bottom-left-radius:4px;}
+.nub-msg.user{background:linear-gradient(135deg,#0055CC,#0078FF);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.nub-msg a{color:#4DA6FF;text-decoration:underline;}
+.nub-msg a:hover{color:#00AAFF;}
+#nub-routes{display:flex;flex-wrap:wrap;gap:7px;padding:8px 14px 10px;}
+.nub-chip{background:rgba(0,120,255,0.1);border:1px solid rgba(0,120,255,0.2);color:#4DA6FF;border-radius:99px;padding:6px 13px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.nub-chip:hover{background:rgba(0,120,255,0.22);border-color:rgba(0,120,255,0.4);color:#fff;}
+#nub-typing{display:none;align-self:flex-start;padding:10px 13px;background:#13161F;border:1px solid rgba(0,120,255,0.1);border-radius:14px;border-bottom-left-radius:4px;}
+#nub-typing span{display:inline-block;width:6px;height:6px;background:#4A4F62;border-radius:50%;margin:0 2px;animation:nubDot 1.2s infinite;}
+#nub-typing span:nth-child(2){animation-delay:.2s;}
+#nub-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes nubDot{0%,80%,100%{transform:scale(0.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
+#nub-input-row{display:flex;gap:8px;padding:10px 12px 12px;border-top:1px solid rgba(0,120,255,0.08);}
+#nub-input{flex:1;background:#13161F;border:1px solid rgba(0,120,255,0.15);border-radius:10px;padding:9px 12px;color:#F0F2F8;font-size:0.82rem;font-family:inherit;outline:none;transition:border-color .15s;}
+#nub-input:focus{border-color:rgba(0,120,255,0.4);}
+#nub-input::placeholder{color:#4A4F62;}
+#nub-send{background:linear-gradient(135deg,#0055CC,#0078FF);border:none;border-radius:10px;width:36px;height:36px;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:opacity .15s;flex-shrink:0;}
+#nub-send:hover{opacity:.85;}
+#nub-send:disabled{opacity:.4;cursor:default;}
+#nub-escalate{display:none;margin:0 14px 10px;padding:9px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;text-align:center;font-size:0.73rem;color:#4A4F62;}
+#nub-escalate a{color:#4DA6FF;text-decoration:none;}
+#nub-escalate a:hover{text-decoration:underline;}
+</style>
+
+<div id="nub-widget">
+  <button id="nub-toggle" onclick="nubToggle()">
+    <span id="nub-toggle-dot"></span>
+    <span id="nub-toggle-label">Chat with NUB</span>
+  </button>
+  <div id="nub-panel">
+    <div id="nub-head">
+      <div id="nub-head-dot"></div>
+      <div>
+        <div id="nub-head-name">NUB — NSAI Support</div>
+        <div id="nub-head-sub">AI operator · online now</div>
+      </div>
+      <button id="nub-close" onclick="nubToggle()">✕</button>
+    </div>
+    <div id="nub-msgs"></div>
+    <div id="nub-routes" style="display:none;"></div>
+    <div id="nub-escalate">Need a human? <a href="mailto:nub@nsai.tech">nub@nsai.tech</a></div>
+    <div id="nub-input-row">
+      <input id="nub-input" type="text" placeholder="Ask NUB anything..." maxlength="400" onkeydown="if(event.key==='Enter')nubSend()">
+      <button id="nub-send" onclick="nubSend()">&#10148;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const NUB_API = 'https://nsai-demo.jut0430.workers.dev/chat';
+let nubHistory = [];
+let nubRoute = null;
+let nubOpen = false;
+let nubTurnCount = 0;
+
+const ROUTES = {
+  pricing: { label: 'Pricing & Plans', emoji: '💳' },
+  download: { label: 'I Already Bought', emoji: '📦' },
+  book: { label: 'Book My Setup Call', emoji: '📅' },
+  support: { label: 'Technical Help', emoji: '🔧' },
+  general: { label: 'General Question', emoji: '💬' }
+};
+
+function nubToggle() {
+  nubOpen = !nubOpen;
+  document.getElementById('nub-panel').classList.toggle('open', nubOpen);
+  if (nubOpen && nubHistory.length === 0) nubGreet();
+  if (nubOpen) setTimeout(() => document.getElementById('nub-input').focus(), 100);
+}
+
+function nubGreet() {
+  nubAddMsg('bot', "Hey — I'm NUB, NSAI's AI operator. I handle everything right here.<br><br>What do you need?");
+  nubShowRoutes();
+}
+
+function nubShowRoutes() {
+  const el = document.getElementById('nub-routes');
+  el.style.display = 'flex';
+  el.style.flexWrap = 'wrap';
+  el.style.gap = '7px';
+  el.style.padding = '8px 14px 10px';
+  el.innerHTML = Object.entries(ROUTES).map(([key, r]) =>
+    `<button class="nub-chip" onclick="nubRoute_select('${key}')">${r.emoji} ${r.label}</button>`
+  ).join('');
+}
+
+function nubRoute_select(route) {
+  nubRoute = route;
+  document.getElementById('nub-routes').style.display = 'none';
+  const labels = { pricing:'Pricing & Plans', download:'I Already Bought', book:'Book My Setup Call', support:'Technical Help', general:'General Question' };
+  nubAddMsg('user', `${ROUTES[route].emoji} ${labels[route]}`);
+  nubHistory.push({ role: 'user', content: labels[route] });
+
+  if (route === 'book') {
+    nubAddMsg('bot', 'Book your 1-hour setup call here — pick a time that works for you:<br><br><a href="https://calendly.com/nsai-tech/30min" target="_blank">📅 Schedule on Calendly →</a><br><br>Once booked you\'ll get a confirmation email. Bring your device and your Anthropic API key and we\'ll have NUB running before the call ends.');
+    nubShowEscalate();
+    return;
+  }
+  if (route === 'download') {
+    nubAddMsg('bot', 'Gumroad sends your download link instantly via email right after purchase — check your inbox (and spam folder) for an email from Gumroad.<br><br>If you can\'t find it, hit me with your Gumroad order ID and I\'ll get it sorted:<br><a href="mailto:nub@nsai.tech?subject=Download%20Help">nub@nsai.tech</a><br><br>Got the file and need help with setup? Switch to <b>Technical Help</b> above.');
+    nubShowEscalate();
+    return;
+  }
+  nubRespond('Start.');
+}
+
+function nubAddMsg(who, html) {
+  const msgs = document.getElementById('nub-msgs');
+  const div = document.createElement('div');
+  div.className = `nub-msg ${who}`;
+  div.innerHTML = html;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function nubShowTyping() {
+  const msgs = document.getElementById('nub-msgs');
+  const t = document.createElement('div');
+  t.id = 'nub-typing-indicator';
+  t.className = 'nub-msg bot';
+  t.style.padding = '10px 13px';
+  t.innerHTML = '<span style="display:inline-block;width:6px;height:6px;background:#4A4F62;border-radius:50%;margin:0 2px;animation:nubDot 1.2s infinite"></span><span style="display:inline-block;width:6px;height:6px;background:#4A4F62;border-radius:50%;margin:0 2px;animation:nubDot 1.2s infinite .2s"></span><span style="display:inline-block;width:6px;height:6px;background:#4A4F62;border-radius:50%;margin:0 2px;animation:nubDot 1.2s infinite .4s"></span>';
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function nubHideTyping() {
+  const t = document.getElementById('nub-typing-indicator');
+  if (t) t.remove();
+}
+
+function nubShowEscalate() {
+  document.getElementById('nub-escalate').style.display = 'block';
+}
+
+async function nubSend() {
+  const input = document.getElementById('nub-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('nub-send').disabled = true;
+
+  nubAddMsg('user', escHtml(text));
+  nubHistory.push({ role: 'user', content: text });
+  nubTurnCount++;
+
+  if (nubTurnCount >= 4) nubShowEscalate();
+
+  await nubRespond(null);
+}
+
+async function nubRespond(initTrigger) {
+  nubShowTyping();
+  const sendBtn = document.getElementById('nub-send');
+
+  try {
+    const res = await fetch(NUB_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: nubHistory, route: nubRoute, init: initTrigger })
+    });
+    const data = await res.json();
+    nubHideTyping();
+    const reply = data.response || 'Stand by — try again in a moment.';
+    nubHistory.push({ role: 'assistant', content: reply });
+    nubAddMsg('bot', reply.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>'));
+  } catch(e) {
+    nubHideTyping();
+    const fallback = nubFallback(nubRoute, initTrigger);
+    nubHistory.push({ role: 'assistant', content: fallback });
+    nubAddMsg('bot', fallback);
+  }
+  sendBtn.disabled = false;
+}
+
+function nubFallback(route, init) {
+  if (route === 'pricing' && init) return 'We have three tiers:<br><br>📦 <b>NUB Installer — $197</b> (one-time): Self-hosted, your API key, runs anywhere. <a href="https://notsoinc.gumroad.com/l/nsai-nub" target="_blank">Buy on Gumroad →</a><br><br>⚡ <b>NUB + Onboarding — $297</b> (one-time): Installer + 1-hour live setup call with an NSAI specialist. <a href="https://notsoinc.gumroad.com/l/nsai-nub-pro" target="_blank">Buy on Gumroad →</a><br><br>🚀 <b>NSAI Operator — $297/mo</b>: Fully managed, we deploy and run everything. <a href="mailto:nub@nsai.tech">Get in touch →</a>';
+  if (route === 'support' && init) return 'What are you running into? Drop your question and I\'ll walk you through it step by step.';
+  return 'Standing by. Drop your question.';
+}
+
+function escHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 </script>
 
