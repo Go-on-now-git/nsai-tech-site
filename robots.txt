@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /marketplace
+Disallow: /pitch/
+Disallow: /contracts/
 
 Sitemap: https://nsai.tech/sitemap.xml
