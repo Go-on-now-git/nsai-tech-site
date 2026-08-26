@@ -117,12 +117,6 @@
         { "@type": "Offer", "name": "NUB Installer", "price": "197", "priceCurrency": "USD", "description": "Self-hosted, bring your own API key" },
         { "@type": "Offer", "name": "NUB + Onboarding", "price": "297", "priceCurrency": "USD", "description": "1hr setup call + 30-day support + first automation built" }
       ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "12",
-        "bestRating": "5"
-      },
       "description": "Autonomous AI operator that runs 24/7 on your own device. Handles business comms, follow-ups, research, scheduling, and execution.",
       "url": "https://nsai.tech"
     },
@@ -472,6 +466,23 @@ section { padding: 96px 0; }
 }
 .marketplace-cta { text-align: center; margin-top: 48px; }
 
+/* QUERYFORGE LAUNCH */
+.queryforge-shell { background: linear-gradient(135deg, rgba(0,120,255,0.12), rgba(0,200,255,0.045)); border: 1px solid rgba(0,120,255,0.28); border-radius: 20px; padding: 42px; position: relative; overflow: hidden; }
+.queryforge-shell::after { content: 'QF'; position: absolute; right: 34px; top: -48px; font-size: 12rem; font-weight: 900; color: rgba(0,120,255,0.06); line-height: 1; pointer-events: none; }
+.queryforge-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 38px; }
+.queryforge-kicker { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: .72rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; margin-bottom: 13px; }
+.queryforge-grid h2 { font-size: clamp(1.8rem, 4vw, 2.75rem); line-height: 1.08; letter-spacing: -.035em; margin-bottom: 14px; }
+.queryforge-grid p { color: var(--text-dim); max-width: 590px; font-size: .94rem; line-height: 1.75; }
+.queryforge-list { display: grid; gap: 11px; margin: 24px 0 28px; }
+.queryforge-list div { color: var(--text-dim); font-size: .81rem; display: flex; gap: 9px; align-items: flex-start; }
+.queryforge-list span { color: var(--green); font-weight: 900; }
+.queryforge-card { background: #080A0F; border: 1px solid rgba(77,166,255,.23); border-radius: 15px; padding: 24px; box-shadow: 0 18px 55px rgba(0,0,0,.22); }
+.queryforge-card-top { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: .68rem; margin-bottom: 20px; }
+.queryforge-status { color: var(--green); }
+.queryforge-line { border: 1px solid rgba(77,166,255,.18); border-radius: 8px; padding: 11px 12px; font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--blue2); margin-top: 9px; background: rgba(0,120,255,.045); }
+.queryforge-note { color: var(--text-muted); font-size: .72rem; margin-top: 17px; line-height: 1.6; }
+@media(max-width:760px){ .queryforge-shell{padding:28px 22px}.queryforge-grid{grid-template-columns:1fr;gap:28px}.queryforge-shell::after{right:-15px}.queryforge-grid .cta-row{justify-content:flex-start;margin-bottom:0} }
+
 /* TECH SHOWCASE */
 .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 .tech-item {
@@ -540,6 +551,7 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
     <div class="nav-links">
       <a href="#wasters">Time Wasters</a>
       <a href="#what">What We Do</a>
+      <a href="#queryforge">QueryForge</a>
       <a href="#demo">Live Demo</a>
       <a href="marketplace/">Marketplace</a>
       <a href="#get-nub" style="color:var(--blue2);font-weight:700;">Get NUB</a>
@@ -547,7 +559,7 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
       <a href="https://youtube.com/@nsaitech" target="_blank" style="color:var(--red)">▶ YouTube</a>
       <a href="https://twitch.tv/nsai_nub" target="_blank" style="color:#a970ff">● Twitch</a>
     </div>
-    <a class="nav-cta" href="#demo">Try It Live →</a>
+    <a class="nav-cta" href="https://notsoinc.gumroad.com/l/queryforge-research-starter-kit" target="_blank" rel="noopener">Get the Free Kit →</a>
   </div>
 </nav>
 
@@ -869,6 +881,24 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
         <p>15+ n8n workflow templates + Tasker profiles. Deploy in 30 minutes, no code required.</p>
         <div class="prod-price">$7<span> one-time</span></div>
       </div>
+      <div class="prod-card" data-cat="download time-waster" style="border-color:rgba(0,200,255,0.3);">
+        <div class="prod-tag" style="background:rgba(74,222,128,0.11);color:var(--green);">Free resource</div>
+        <div class="prod-icon">🔎</div>
+        <div class="prod-cat cyan">Research toolkit</div>
+        <h3>QueryForge Research Starter Kit</h3>
+        <p>A practical field guide for building responsible, precise public-information research queries before you automate a workflow.</p>
+        <div class="prod-price">Free<span> download</span></div>
+        <a href="https://notsoinc.gumroad.com/l/queryforge-research-starter-kit" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;font-size:0.72rem;color:var(--blue2);text-decoration:none;">→ Get the free kit</a>
+      </div>
+      <div class="prod-card" data-cat="download time-waster" style="border-color:rgba(74,222,128,0.28);">
+        <div class="prod-tag" style="background:rgba(74,222,128,0.11);color:var(--green);">Free resource</div>
+        <div class="prod-icon">✓</div>
+        <div class="prod-cat" style="color:var(--green);">Automation planning</div>
+        <h3>NSAI Research-to-Automation Scorecard</h3>
+        <p>Score a workflow across impact, repeatability, data readiness, review needs, and implementation effort before you build.</p>
+        <div class="prod-price">Free<span> worksheet</span></div>
+        <a href="https://notsoinc.gumroad.com/l/nsai-research-scorecard" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;font-size:0.72rem;color:var(--blue2);text-decoration:none;">→ Get the free scorecard</a>
+      </div>
       <div class="prod-card" data-cat="saas">
         <div class="prod-icon">🔍</div>
         <div class="prod-cat">Security</div>
@@ -887,6 +917,39 @@ footer { border-top: 1px solid var(--border); padding: 44px 0; }
     </div>
     <div class="marketplace-cta">
       <a href="marketplace/" class="btn-primary">View Full Marketplace →</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUERYFORGE LAUNCH -->
+<section id="queryforge">
+  <div class="container">
+    <div class="queryforge-shell">
+      <div class="queryforge-grid">
+        <div>
+          <div class="queryforge-kicker">New · Controlled research workspace</div>
+          <h2>Build a better research trail before you automate it.</h2>
+          <p>QueryForge turns a plain-language research goal into transparent, reviewable public-information queries. You can set source boundaries, apply exact phrases and exclusions, then choose if and when to open a search.</p>
+          <div class="queryforge-list">
+            <div><span>01</span> Frame one clear research brief.</div>
+            <div><span>02</span> Generate four distinct, explainable query lanes.</div>
+            <div><span>03</span> Save or export the research deck for your workflow.</div>
+          </div>
+          <div class="cta-row" style="justify-content:flex-start;margin-bottom:0;">
+            <a href="https://notsoinc.gumroad.com/l/queryforge-research-starter-kit" target="_blank" rel="noopener" class="btn-primary">Get the Free Starter Kit →</a>
+            <a href="https://notsoinc.gumroad.com/l/nsai-research-scorecard" target="_blank" rel="noopener" class="btn-ghost">Get the Free Scorecard</a>
+            <a href="#products" class="btn-ghost">Explore NSAI tools</a>
+          </div>
+        </div>
+        <aside class="queryforge-card" aria-label="QueryForge workflow preview">
+          <div class="queryforge-card-top"><span>queryforge / research deck</span><span class="queryforge-status">● controlled</span></div>
+          <div class="queryforge-line">01 · Explore · source landscape</div>
+          <div class="queryforge-line">02 · Verify · supportable claims</div>
+          <div class="queryforge-line">03 · Find sources · reports &amp; data</div>
+          <div class="queryforge-line">04 · Track updates · public changes</div>
+          <p class="queryforge-note">Free kit includes the research-brief canvas, operator guide, and public-information search patterns.</p>
+        </aside>
+      </div>
     </div>
   </div>
 </section>
