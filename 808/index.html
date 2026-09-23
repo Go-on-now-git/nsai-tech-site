@@ -27,24 +27,24 @@ body{background:#06070E;color:#F0F0FF;font-family:'Inter',system-ui,sans-serif;m
   display:flex;flex-direction:column;align-items:center;padding:16px;overflow-x:hidden}
 h1{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#0055CC,#0099FF,#00DDFF);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px;text-align:center}
-.sub{color:#3A4060;font-size:.75rem;margin-bottom:16px;text-align:center}
+.sub{color:#8A93B8;font-size:.75rem;margin-bottom:16px;text-align:center}
 .tabs{display:flex;gap:4px;margin-bottom:16px;background:#0A0C15;border-radius:10px;padding:4px;width:100%;max-width:520px}
-.tab{flex:1;padding:8px;text-align:center;border-radius:7px;cursor:pointer;font-size:.8rem;color:#4A5068;transition:all .2s}
+.tab{flex:1;padding:8px;text-align:center;border-radius:7px;cursor:pointer;font-size:.8rem;color:#9AA3C4;transition:all .2s}
 .tab.active{background:#001830;color:#0099FF;font-weight:700}
 .presets{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:100%;max-width:520px;margin-bottom:14px}
 .preset{background:#0A0C15;border:1px solid #1A1E30;border-radius:7px;padding:6px 12px;font-size:.75rem;
-  cursor:pointer;color:#6070A0;transition:all .2s;touch-action:manipulation}
+  cursor:pointer;color:#8E99C6;transition:all .2s;touch-action:manipulation}
 .preset.active{background:#001020;border-color:#0066EE;color:#0099FF}
 .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:520px;margin-bottom:16px}
 .knob-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
-.knob-label{font-size:.65rem;color:#3A4060;text-transform:uppercase;letter-spacing:.08em}
+.knob-label{font-size:.65rem;color:#8A93B8;text-transform:uppercase;letter-spacing:.08em}
 .knob-val{font-size:.78rem;color:#7080A0}
 .knob{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#1A1E30,#080A14);
   border:2px solid #1A1E30;cursor:pointer;position:relative;touch-action:none;transition:border-color .2s}
 .knob:active{border-color:#0066EE}
 .needle{position:absolute;width:3px;height:16px;background:#0078FF;border-radius:2px;
   top:5px;left:50%;transform-origin:bottom center}
-.tuning-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.8rem;color:#4A5068}
+.tuning-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:.8rem;color:#9AA3C4}
 .toggle{width:44px;height:24px;background:#0A0C15;border:1px solid #1A1E30;border-radius:12px;
   cursor:pointer;position:relative;transition:background .2s}
 .toggle.on{background:#001830;border-color:#0066EE}
@@ -67,17 +67,17 @@ h1{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#0055CC,#0
 .note-pads{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:520px;margin-bottom:14px}
 .note-pad{height:60px;border-radius:10px;background:#06080F;border:2px solid #1A1E30;
   display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;
-  font-size:.75rem;color:#4A5068;touch-action:manipulation;transition:all .1s;user-select:none}
+  font-size:.75rem;color:#9AA3C4;touch-action:manipulation;transition:all .1s;user-select:none}
 .note-pad .nn{font-weight:700;font-size:.85rem}
 .note-pad:active,.note-pad.pressing{background:#001020;border-color:#0066EE;color:#0099FF}
 .export-row{display:flex;gap:8px;width:100%;max-width:520px;margin-bottom:10px}
 .btn{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;font-size:.8rem;cursor:pointer;touch-action:manipulation}
 .btn-blue{background:linear-gradient(135deg,#0044BB,#0077FF);color:#fff}
-.btn-dark{background:#0A0C15;border:1px solid #1A1E30;color:#6070A0}
+.btn-dark{background:#0A0C15;border:1px solid #1A1E30;color:#8E99C6}
 .export-info{background:#0A0C15;border:1px solid #1A1E30;border-radius:12px;padding:14px;margin-bottom:12px;
   font-size:.78rem;color:#5060A0;line-height:1.7;width:100%;max-width:520px}
-.status{font-size:.72rem;color:#3A4060;text-align:center;min-height:18px;margin-bottom:6px}
-.badge{font-size:.65rem;color:#1A1E28;text-align:center;margin-top:8px}
+.status{font-size:.72rem;color:#8A93B8;text-align:center;min-height:18px;margin-bottom:6px}
+.badge{font-size:.65rem;color:#8A93B8;text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
@@ -102,7 +102,7 @@ h1{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#0055CC,#0
   <div class="tuning-row">
     <span>440 Hz</span>
     <div class="toggle" id="hz-toggle" onclick="toggle432()"></div>
-    <span id="hz-label" style="color:#3A4060;font-weight:700">432 Hz</span>
+    <span id="hz-label" style="color:#8A93B8;font-weight:700">432 Hz</span>
   </div>
   <div class="controls">
     <div class="knob-wrap"><div class="knob-label">Decay</div><div class="knob" data-p="decay" data-min="50" data-max="3000" data-val="600"><div class="needle"></div></div><div class="knob-val" id="v-decay">600ms</div></div>
@@ -271,7 +271,7 @@ function trigDrum(type){
 function toggle432(){
   use432=!use432;
   document.getElementById('hz-toggle').classList.toggle('on',use432);
-  document.getElementById('hz-label').style.color=use432?'#0099FF':'#3A4060';
+  document.getElementById('hz-label').style.color=use432?'#0099FF':'#8A93B8';
 }
 
 function showTab(n){

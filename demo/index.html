@@ -123,7 +123,7 @@ select option { background: #18181b; }
     <div class="form-row">
       <div class="form-group">
         <label>Your Role</label>
-        <select id="role">
+        <select id="role" aria-label="Your role">
           <option value="">Select your role...</option>
           <option value="trader">Crypto / Stock Trader</option>
           <option value="founder">Startup Founder</option>
@@ -135,7 +135,7 @@ select option { background: #18181b; }
       </div>
       <div class="form-group">
         <label>Biggest Time-Waster</label>
-        <select id="task">
+        <select id="task" aria-label="Task to automate">
           <option value="">Select a pain point...</option>
           <option value="research">Market research & analysis</option>
           <option value="inbox">Email & message triage</option>
@@ -149,7 +149,7 @@ select option { background: #18181b; }
     </div>
     <div class="form-group" style="margin-bottom:16px;">
       <label>Your Name (optional)</label>
-      <input type="text" id="name" placeholder="e.g. Alex">
+      <input type="text" id="name" aria-label="Your name" placeholder="e.g. Alex">
     </div>
     <button class="run-btn" id="runBtn" onclick="runDemo()">▶ Run My Demo</button>
   </div>
